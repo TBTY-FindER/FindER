@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import "./components.css";
 
-const PermissionAlert = () => {
+const PermissionAlert = ({ handleButton }) => {
   const requestMicrophonePermission = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      // Microphone permission granted and audio stream obtained
+      console.log("Permission Granted" + stream);
     } catch (error) {
       // Handle the error (e.g., permission denied)
     }
@@ -25,8 +25,6 @@ const PermissionAlert = () => {
     }
   };
 
-  // ask for permission to use microphone and location
-
   const handleMicrophoneAccess = async () => {
     await requestMicrophonePermission();
   };
@@ -38,13 +36,10 @@ const PermissionAlert = () => {
   useEffect(() => {
     handleLocationAccess();
     handleMicrophoneAccess();
-  }, []);
+  });
 
   return (
     <div className="card-permission">
-      <button type="button" className="dismiss">
-        ×
-      </button>
       <div className="header">
         <div className="image-permission">
           <p>X</p>
@@ -57,7 +52,11 @@ const PermissionAlert = () => {
           </p>
         </div>
         <div className="actions">
-          <button type="button" className="reload-permission">
+          <button
+            type="button"
+            className="reload-permission"
+            onClick={handleButton}
+          >
             Continue without
           </button>
         </div>
