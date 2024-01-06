@@ -123,6 +123,9 @@ checkServices = async (
   }
 };
 
+// export these functions
+module.exports = { checkUrgency, checkFirstResponse, checkServices };
+
 /////////////////////// Define Functions End ///////////////////////
 
 /////////////////////// Test Functions Start ///////////////////////
