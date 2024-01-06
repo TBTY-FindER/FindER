@@ -9,6 +9,10 @@ testorigin = {
     long: -113.5301719
 }
 
+function getHospitalLatLng(destinations){
+    
+} 
+
 async function DistanceToEverything(origin){
     let hospitals;
     hospitals = await ahs.buildClasses()
@@ -23,7 +27,7 @@ async function DistanceToEverything(origin){
             destinations: arrs,
             key: GOOGLE_MAPS_API
         },
-        timeout:3000
+        timeout:1000
     }
     client.distancematrix(
         dmatrixRequest
