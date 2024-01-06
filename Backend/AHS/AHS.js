@@ -25,20 +25,20 @@ function parseTime(str) {
 }
 
 
-async function exportHospitalNames(){
+async function buildClasses(){
     const url =
     "https://www.albertahealthservices.ca/Webapps/WaitTimes/api/waittimes/";
 
     const data = await fetchHTML(url);
-    let hospitalNames = new Array()
     let Cities = new Array()
     for (const i in data){
         CurrCity = new City(i,[])
         for (const j of data[i].Emergency){
-            newHospital = new Hospital(
+            let parsedTime = parseTime(j.WaitTime)
+            let newHospital = new Hospital(
                 j.Name,
                 j.Category,
-                j.WaitTime,
+                parsedTime,
                 j.URL,
                 j.Note,
                 j.TimesUnavailable
@@ -90,4 +90,4 @@ async function test() {
     console.error(error);}
 }
 
-exportHospitalNames();
+buildClasses();
