@@ -35,6 +35,28 @@ class AHS {
         let Hospitals = new Array()
         for (const i in data){
             let CurrCity = new City(i,[])
+            if (data[i].Urgent.length != 0){
+              for (const j of data[i].Urgent){
+                let parsedTime
+                if (j.TimesUnavailable == false){
+                    parsedTime = this.parseTime(j.WaitTime)
+                }
+                else{
+                    parsedTime = Infinity
+                }
+    
+                let newHospital = new Hospital(
+                    j.Name,
+                    j.Category,
+                    parsedTime,
+                    j.URL,
+                    j.Note,
+                    j.TimesUnavailable
+                )
+                Hospitals.push(newHospital)
+                CurrCity.Hospitals.push(newHospital)
+              }
+            }
             for (const j of data[i].Emergency){
                 let parsedTime
                 if (j.TimesUnavailable == false){

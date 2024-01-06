@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Typography from '@mui/material/Typography';
 import HospitalList from '../components/HospitalListItem';
 
 // const dummyHospitals = [
@@ -37,8 +38,16 @@ function SecondPage() {
   }, []);
 
   return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'auto', padding: '20px' }}>
-      <h1>Nearby Hospitals</h1>
+    <div style={{
+      width: '100vw',
+      height: '100vh',
+      overflow: 'auto',
+      padding: '20px',
+      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)', // Example gradient
+    }}>
+      <Typography variant="h2" component="h1" style={{ textAlign: 'center', margin: '20px 0' }}>
+        Nearby Hospitals
+      </Typography>
       <HospitalList hospitals={hospitals} />
     </div>
   );
