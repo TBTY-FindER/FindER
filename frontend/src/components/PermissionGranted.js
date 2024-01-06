@@ -3,7 +3,7 @@ import "./components.css";
 
 const PermissionGranted = () => {
   return (
-    <div className="card-granted">
+    <div className="card-permission">
       <div className="header">
         <div className="image-granted">
           <svg
@@ -31,7 +31,7 @@ const PermissionGranted = () => {
         </div>
         <div className="content-granted">
           <span className="title-granted">Permission granted</span>
-          <p className="message">
+          <p className="message-permission">
             Thanks for enabling permissions. Let's get started!
           </p>
         </div>

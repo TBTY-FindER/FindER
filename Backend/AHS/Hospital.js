@@ -1,5 +1,3 @@
-
-
 class Hospital {
     constructor(Name,Category,WaitTime,URL,Note,TimesUnavailable){
         this.Name = Name;

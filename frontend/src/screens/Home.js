@@ -1,15 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PermissionAlert from "../components/PermissionAlert";
 import PermissionGranted from "../components/PermissionGranted";
 import "./screen.css";
 import VoiceAnimation from "../components/VoiceAnimation";
 import Loader from "../components/Loader";
+import Form from "../components/Form";
 
 const Home = () => {
-  const [permissionDenied, setPermissionDenied] = React.useState(true);
-  const [locationPermission, setLocationPermission] = React.useState(true);
-  const [location, setLocation] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
+  const [permissionDenied, setPermissionDenied] = useState(true);
+  const [locationPermission, setLocationPermission] = useState(true);
+  const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [permissionPage, setPermissionPage] = useState(true);
+
+  const endPermissionPage = () => {
+    setPermissionPage(false);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,10 +39,6 @@ const Home = () => {
         if (permissionStatus.state === "granted") {
           setLocationPermission(false);
           navigator.geolocation.getCurrentPosition(function (position) {
-            console.log({
-              lat: position.coords.latitude,
-              long: position.coords.longitude,
-            });
             setLocation({
               lat: position.coords.latitude,
               long: position.coords.longitude,
@@ -48,15 +50,28 @@ const Home = () => {
 
   return (
     <div className="home">
-      {loading ? (
-        <Loader />
+      {permissionPage ? (
+        <>
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {/* check if location is not empty */}
+              {locationPermission || permissionDenied ? (
+                <PermissionAlert handleButton={endPermissionPage} />
+              ) : (
+                <PermissionGranted handleButton={endPermissionPage} />
+              )}
+            </>
+          )}
+        </>
       ) : (
         <>
-          {/* check if location is not empty */}
           {locationPermission || permissionDenied ? (
-            <PermissionAlert />
+            // <Form />
+            <Form />
           ) : (
-            <PermissionGranted />
+            <VoiceAnimation />
           )}
         </>
       )}
