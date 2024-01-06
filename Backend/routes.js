@@ -1,6 +1,7 @@
 const express = require('express');
 const HospitalController = require('./Controller/hospitalController');
 const router = express.Router();
+router.use(cors());
 
 // Define your routes
 router.get('/hospitals', (req, res) => {
