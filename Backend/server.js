@@ -1,11 +1,11 @@
 const express = require('express')
+const routes = require('./routes');
+
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/api', routes); // Mount the routes on /api
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`FindER server listening on port ${port}`)
 })

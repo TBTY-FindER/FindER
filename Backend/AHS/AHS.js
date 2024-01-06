@@ -1,6 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-
+const City = require("./City")
+const Hospital = require("./Hospital")
 async function fetchHTML(url) {
   try {
     const { data } = await axios.get(url);
@@ -21,6 +22,37 @@ function parseTime(str) {
     }
   }
   return null;
+}
+
+
+async function buildClasses(){
+    const url =
+    "https://www.albertahealthservices.ca/Webapps/WaitTimes/api/waittimes/";
+
+    const data = await fetchHTML(url);
+    let Cities = new Array()
+    for (const i in data){
+        CurrCity = new City(i,[])
+        for (const j of data[i].Emergency){
+            let parsedTime = parseTime(j.WaitTime)
+            let newHospital = new Hospital(
+                j.Name,
+                j.Category,
+                parsedTime,
+                j.URL,
+                j.Note,
+                j.TimesUnavailable
+            )
+            CurrCity.Hospitals.push(newHospital)
+        }
+        Cities.push(CurrCity)
+    }
+    for (const i of Cities){
+        console.log(i.Name)
+        console.log(i.Hospitals)
+    }
+    console.log(Cities)
+    return Cities
 }
 
 async function test() {
@@ -58,4 +90,4 @@ async function test() {
     console.error(error);}
 }
 
-test();
+buildClasses();

@@ -1,7 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./components.css";
 
 const PermissionAlert = () => {
+  const requestMicrophonePermission = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      // Microphone permission granted and audio stream obtained
+    } catch (error) {
+      // Handle the error (e.g., permission denied)
+    }
+  };
+  const requestLocationPermission = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Position obtained
+        },
+        (error) => {
+          // Handle the error (e.g., permission denied)
+        }
+      );
+    } else {
+      // Geolocation is not supported by this browser
+    }
+  };
+
+  // ask for permission to use microphone and location
+
+  const handleMicrophoneAccess = async () => {
+    await requestMicrophonePermission();
+  };
+
+  const handleLocationAccess = () => {
+    requestLocationPermission();
+  };
+
+  useEffect(() => {
+    handleLocationAccess();
+    handleMicrophoneAccess();
+  }, []);
+
   return (
     <div className="card-permission">
       <button type="button" className="dismiss">
@@ -9,28 +47,7 @@ const PermissionAlert = () => {
       </button>
       <div className="header">
         <div className="image-permission">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              id="SVGRepo_tracerCarrier"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <path
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="1.5"
-                stroke="#000000"
-                d="M20 7L9.00004 18L3.99994 13"
-              ></path>{" "}
-            </g>
-          </svg>
+          <p>X</p>
         </div>
         <div className="content-permission">
           <span className="title-permission">Permission Requested</span>
@@ -40,8 +57,8 @@ const PermissionAlert = () => {
           </p>
         </div>
         <div className="actions">
-          <button type="button" className="reload">
-            Done
+          <button type="button" className="reload-permission">
+            Continue without
           </button>
         </div>
       </div>
