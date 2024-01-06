@@ -1,10 +1,11 @@
 const express = require('express');
+const HospitalController = require('./Controller/hospitalController');
 const router = express.Router();
 
 // Define your routes
-router.get('/', (req, res) => {
-    // Handle GET request for users
-    res.json({ message: 'Get default' });
+router.get('/hospitals', (req, res) => {
+    console.log("hospitals/n");
+    return res.json({ body: HospitalController.getHospitals() });
 });
 
 // Define your routes
