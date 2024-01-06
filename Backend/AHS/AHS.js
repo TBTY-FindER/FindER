@@ -4,8 +4,8 @@ const City = require("./City")
 const Hospital = require("./Hospital")
 class AHS {
     constructor(){
-        
     }
+    
     async fetchHTML(url) {
         try {
           const { data } = await axios.get(url);
