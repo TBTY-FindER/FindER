@@ -2,57 +2,63 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const City = require("./City")
 const Hospital = require("./Hospital")
-async function fetchHTML(url) {
-  try {
-    const { data } = await axios.get(url);
-    return data;
-  } catch (error) {
-    console.error(`Error fetching ${url}`, error);
-    throw error;
-  }
-}
-
-function parseTime(str) {
-  const match = str.split(" ")
-  if (match) {
-    const hr = parseInt(match[0], 10);
-    const min = parseInt(match[2], 10);
-    if (!isNaN(hr) && !isNaN(min)) {
-      return {hours: hr, minutes: min}
+class AHS {
+    constructor(){
+        
     }
-  }
-  return null;
-}
-
-
-async function buildClasses(){
-    const url =
-    "https://www.albertahealthservices.ca/Webapps/WaitTimes/api/waittimes/";
-
-    const data = await fetchHTML(url);
-    let Cities = new Array()
-    for (const i in data){
-        CurrCity = new City(i,[])
-        for (const j of data[i].Emergency){
-            let parsedTime = parseTime(j.WaitTime)
-            let newHospital = new Hospital(
-                j.Name,
-                j.Category,
-                parsedTime,
-                j.URL,
-                j.Note,
-                j.TimesUnavailable
-            )
-            CurrCity.Hospitals.push(newHospital)
+    async fetchHTML(url) {
+        try {
+          const { data } = await axios.get(url);
+          return data;
+        } catch (error) {
+          console.error(`Error fetching ${url}`, error);
+          throw error;
         }
-        Cities.push(CurrCity)
     }
-    for (const i of Cities){
-        console.log(i.Name)
-        console.log(i.Hospitals)
+    parseTime(str) {
+        const match = str.split(" ")
+        if (match) {
+          const hr = parseInt(match[0], 10);
+          const min = parseInt(match[2], 10);
+          if (!isNaN(hr) && !isNaN(min)) {
+            return {hours: hr, minutes: min}
+          }
+        }
+        return null;
     }
-    console.log(Cities)
-    return Cities
+    async buildClasses(){
+        const url =
+        "https://www.albertahealthservices.ca/Webapps/WaitTimes/api/waittimes/";
+    
+        const data = await this.fetchHTML(url);
+        let Cities = new Array()
+        let Hospitals = new Array()
+        for (const i in data){
+            let CurrCity = new City(i,[])
+            for (const j of data[i].Emergency){
+                let parsedTime
+                if (j.TimesUnavailable == false){
+                    parsedTime = this.parseTime(j.WaitTime)
+                }
+                else{
+                    parsedTime = Infinity
+                }
+    
+                let newHospital = new Hospital(
+                    j.Name,
+                    j.Category,
+                    parsedTime,
+                    j.URL,
+                    j.Note,
+                    j.TimesUnavailable
+                )
+                Hospitals.push(newHospital)
+                CurrCity.Hospitals.push(newHospital)
+            }
+            Cities.push(CurrCity)
+        }
+        return Hospitals
+    }
 }
 
 async function test() {
@@ -89,5 +95,4 @@ async function test() {
   catch (error) {
     console.error(error);}
 }
-
-buildClasses();
+module.exports = AHS
