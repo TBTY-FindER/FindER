@@ -5,31 +5,29 @@ class Form extends React.Component {
     return (
       <div className="testbox">
         <form action="/">
-          <p id="h1">Feedback Form</p>
-          <p id="h4">Name</p>
+          <p id="h1">Form</p>
+          <p id="h4">
+            Address of the incident<span>*</span>
+          </p>
           <input
-            placeholder="Enter your full name"
+            placeholder="Enter your address"
             type="text"
             className="input"
           />
           <p id="h4">
-            Email<span>*</span>
-          </p>
-          <input placeholder="Enter your email" type="text" className="input" />
-          <p id="h4">
-            What is your overall impression?<span>*</span>
+            What is the individual's gender?<span>*</span>
           </p>
           <table>
             <tbody>
               <tr>
                 <th className="first-col"></th>
-                <th>Very Satisfied</th>
-                <th>Satisfied</th>
-                <th>Unsatisfied</th>
-                <th>Very Unsatisfied</th>
+                <th className="gender-options">Female</th>
+                <th className="gender-options">Male</th>
+                <th className="gender-options">Non-binary</th>
+                <th className="gender-options">Prefer not to disclose</th>
               </tr>
               <tr>
-                <td className="first-col">Professional</td>
+                <td className="first-col">Gender</td>
                 <td>
                   <input name="point#2" value="none" type="radio" />
                 </td>
@@ -45,10 +43,10 @@ class Form extends React.Component {
               </tr>
             </tbody>
           </table>
-          <p id="h4">Feel free to add any other comments or suggestions:</p>
+          <p id="h4">Please describe the emergency situation:</p>
           <textarea rows="5"></textarea>
           <div className="btn-block">
-            <button type="submit">Send Feedback</button>
+            <button type="submit">Submit</button>
           </div>
         </form>
       </div>

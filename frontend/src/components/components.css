@@ -16,7 +16,7 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
-  animation: slideIn 1s forwards;
+  animation: slideIn 0.5s forwards;
 }
 
 @keyframes slideIn {
@@ -359,11 +359,14 @@ p {
   padding: 0;
   margin: 0;
   outline: none;
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   color: #000;
   line-height: 13px;
   border-radius: 10px;
+}
+
+form {
+  animation: slideIn 1s forwards;
 }
 
 #h1 {
@@ -381,14 +384,13 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: inherit;
-  padding: 80px;
+  width: 50vw;
 }
 
 form {
   width: 100%;
   padding: 20px;
-  background: #ebebe1;
+  background: white;
   box-shadow: 0 2px 5px #ccc;
 }
 
@@ -399,6 +401,7 @@ form {
   border-radius: 3px;
   vertical-align: middle;
   background-color: #f7f7f7;
+  font-size: 20px;
 }
 
 .input:hover,
@@ -436,6 +439,7 @@ textarea {
   width: calc(100% - 6px);
   background: #f7f7f7;
   border-radius: 5px;
+  font-size: 20px;
 }
 
 .btn-block {
@@ -450,9 +454,9 @@ textarea {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: #f3d153;
-  font-size: 16px;
-  color: #000;
+  background-color: rgb(0, 92, 185);
+  font-size: 20px;
+  color: white;
   cursor: pointer;
 }
 
@@ -465,4 +469,8 @@ textarea {
   td {
     word-break: keep-all;
   }
+}
+
+.gender-options {
+  font-size: 16px;
 }
