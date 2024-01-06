@@ -1,3 +1,10 @@
+const dotenv = require("dotenv");
+dotenv.config();
+const AHS = require("../AHS/AHS");
+const ahs = new AHS();
+
+const GOOGLE_MAPS_API = process.env.GOOGLE_MAPS_API_KEY;
+
 async function geocodeAddress(address) {
   const dotenv = require("dotenv");
   dotenv.config();
