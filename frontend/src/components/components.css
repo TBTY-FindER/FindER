@@ -133,6 +133,7 @@
   margin-top: 1rem;
   color: #595b5f;
   font-size: 1.25rem;
+  line-height: 1.5rem;
 }
 
 .actions {
@@ -144,7 +145,8 @@
   padding: 0.5rem 1rem;
   background-color: red;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.4rem;
+  font-weight: bolder;
   line-height: 1.5rem;
   font-weight: 500;
   justify-content: center;
