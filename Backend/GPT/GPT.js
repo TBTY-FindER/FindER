@@ -1,4 +1,14 @@
-// urgency classifier function
+/////////////////////// Define Functions Start ///////////////////////
+
+/*
+    Name: checkUrgency
+    Description: This function checks whether the situation is urgent or not. This is important because down the pipeline, if it is urgent, we'll send the patient to the nearest hospital, and if not, we'll send the patient based on the total time needed.
+    Parameters:
+        - gender (str): "male" or "female"
+        - age (int): 0-99
+        - situation (str): description of emergency situation (ex. symptoms)
+    Returns: "urgent" or "non-urgent" 
+*/
 checkUrgency = async (
   gender = "unknown",
   age = "unknown",
@@ -28,9 +38,97 @@ checkUrgency = async (
   }
 };
 
+/*
+    Name: checkFirstResponse
+    Description: This function suggests to the user what to do as a first response before reaching the emergency or before it arrives.
+    Parameters:
+        - gender (str): "male" or "female"
+        - age (int): 0-99
+        - situation (str): description of emergency situation (ex. symptoms)
+    Returns: Description of what to do in 3-5 points 
+*/
+checkFirstResponse = async (
+  gender = "unknown",
+  age = "unknown",
+  situation = "unknown"
+) => {
+  try {
+    // initialization
+    const OpenAI = require("openai");
+    require("dotenv").config();
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    // prompt
+    const message = `The patient's gender is ${gender}, and the age is ${age}. ${situation}. This is an emergency situation. With the best of your knowledge, briefly describe what should be done (with list of numbers (about 3 to 5 points))until the patient arrives at the emergency or the ambulance comes.`;
+
+    // use gpt
+    const response = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{ role: "user", content: message }],
+      temperature: 0,
+      max_tokens: 100,
+    });
+    return response.choices[0].message.content;
+  } catch (err) {
+    return err.message;
+  }
+};
+
+/*
+    Name: checkServices
+    Description: This function examines the services of a hospital of interest and checks whether or not it could deal with the situation.
+    Parameters:
+        - gender (str): "male" or "female"
+        - age (int): 0-99
+        - situation (str): description of emergency situation (ex. symptoms)
+        - hospital_name (str): name of hospital
+    Returns: "yes" if it can deal with the situation or "no" if it cannot.
+*/
+checkServices = async (
+  gender = "unknown",
+  age = "unknown",
+  situation = "unknown",
+  hospital_name = "Innisfail Health Centre"
+) => {
+  let services = [];
+  try {
+    const fs = require("fs").promises;
+    const data = await fs.readFile("hospital_info.json", "utf8");
+    const json = JSON.parse(data);
+    services = json[hospital_name]["services"];
+
+    try {
+      const OpenAI = require("openai");
+      require("dotenv").config();
+      const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+      });
+
+      const message = `The patient's gender is ${gender}, and the age is ${age}. ${situation}. And the services provided by the emergency are the following: ${services}. Would this emergency be able to resolve the situation? Your output must be either 'yes' or 'no'.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-4",
+        messages: [{ role: "user", content: message }],
+        temperature: 0,
+        max_tokens: 5,
+      });
+      return response.choices[0].message.content;
+    } catch (err) {
+      return err.message;
+    }
+  } catch (error) {
+    console.error("Error reading the file:", error);
+  }
+};
+
+/////////////////////// Define Functions End ///////////////////////
+
+/////////////////////// Test Functions Start ///////////////////////
+
 // sample use of checkUrgency function
-// Define the main async function to use await
-async function main() {
+async function testUrgency() {
   try {
     let urgency = await checkUrgency("male", 63, "tummy ache and mouth bleeds");
     console.log(urgency);
@@ -40,5 +138,44 @@ async function main() {
   }
 }
 
-// Call the main function
-main();
+// sample use of checkFirstResponse function
+async function testFirstResponse() {
+  try {
+    let firstResponse = await checkFirstResponse(
+      "male",
+      63,
+      "tummy ache and mouth bleeds"
+    );
+    console.log(firstResponse);
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+// sample use of checkServices function
+async function testServices() {
+  try {
+    let serviceApplicable = await checkServices(
+      "male",
+      63,
+      "tummy ache and mouth bleeds",
+      "Innisfail Health Centre"
+    );
+    console.log(serviceApplicable);
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+/////////////////////// Test Functions End ///////////////////////
+
+/*
+// Call the testUrgency function
+testUrgency();
+
+// Call the testFirstResponse function
+testFirstResponse();
+
+// Call the testServices function
+testServices();
+*/
