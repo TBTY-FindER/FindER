@@ -6,10 +6,9 @@ import VoiceAnimation from "../components/VoiceAnimation";
 import Loader from "../components/Loader";
 import Form from "../components/Form";
 
-const Home = () => {
+const Home = ({ addressHandler, genderHandler, locationHandler }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
-  const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [permissionPage, setPermissionPage] = useState(true);
 
@@ -23,30 +22,37 @@ const Home = () => {
     }, 2000);
   }, []);
 
-  // check if user has given permission to use microphone and location
-  useEffect(() => {
-    navigator.permissions
+  async function micPermission() {
+    await navigator.permissions
       .query({ name: "microphone" })
       .then(function (permissionStatus) {
         if (permissionStatus.state === "granted") {
           setPermissionDenied(false);
-          console.log("microphone granted");
         }
       });
-    navigator.permissions
+  }
+
+  async function geoPermission() {
+    await navigator.permissions
       .query({ name: "geolocation" })
       .then(function (permissionStatus) {
         if (permissionStatus.state === "granted") {
           setLocationPermission(false);
           navigator.geolocation.getCurrentPosition(function (position) {
-            setLocation({
+            locationHandler({
               lat: position.coords.latitude,
               long: position.coords.longitude,
             });
           });
         }
       });
-  }, []);
+  }
+
+  // check if user has given permission to use microphone and location
+  useEffect(() => {
+    micPermission();
+    geoPermission();
+  });
 
   return (
     <div className="home">
@@ -68,7 +74,6 @@ const Home = () => {
       ) : (
         <>
           {locationPermission || permissionDenied ? (
-            // <Form />
             <Form />
           ) : (
             <VoiceAnimation />
