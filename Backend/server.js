@@ -1,7 +1,9 @@
 const express = require('express')
+const cors = require('cors');
 const routes = require('./routes');
 
 const app = express()
+app.use(cors());
 const port = 3000
 
 app.use('/api', routes); // Mount the routes on /api
