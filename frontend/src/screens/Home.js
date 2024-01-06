@@ -22,16 +22,18 @@ const Home = ({ addressHandler, genderHandler, locationHandler }) => {
     }, 2000);
   }, []);
 
-  // check if user has given permission to use microphone and location
-  useEffect(() => {
-    navigator.permissions
+  async function micPermission() {
+    await navigator.permissions
       .query({ name: "microphone" })
       .then(function (permissionStatus) {
         if (permissionStatus.state === "granted") {
           setPermissionDenied(false);
         }
       });
-    navigator.permissions
+  }
+
+  async function geoPermission() {
+    await navigator.permissions
       .query({ name: "geolocation" })
       .then(function (permissionStatus) {
         if (permissionStatus.state === "granted") {
@@ -44,7 +46,13 @@ const Home = ({ addressHandler, genderHandler, locationHandler }) => {
           });
         }
       });
-  }, []);
+  }
+
+  // check if user has given permission to use microphone and location
+  useEffect(() => {
+    micPermission();
+    geoPermission();
+  });
 
   return (
     <div className="home">

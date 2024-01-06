@@ -6,9 +6,7 @@ class Form extends React.Component {
       <div className="testbox">
         <form action="/">
           <p id="h1">Emergency Information From</p>
-          <p id="h4">
-            Current Locaiton<span>*</span>
-          </p>
+          <p id="h4">Current Locaiton</p>
           <input
             placeholder="Enter your address"
             type="text"
