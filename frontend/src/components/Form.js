@@ -5,7 +5,7 @@ class Form extends React.Component {
     return (
       <div className="testbox">
         <form action="/">
-          <p id="h1">Form</p>
+          <p id="h1">Emergency Information From</p>
           <p id="h4">
             Address of the incident<span>*</span>
           </p>
@@ -15,7 +15,7 @@ class Form extends React.Component {
             className="input"
           />
           <p id="h4">
-            What is the individual's gender?<span>*</span>
+            What is the individual's birth assigned gender?<span>*</span>
           </p>
           <table>
             <tbody>
@@ -23,7 +23,7 @@ class Form extends React.Component {
                 <th className="first-col"></th>
                 <th className="gender-options">Female</th>
                 <th className="gender-options">Male</th>
-                <th className="gender-options">Non-binary</th>
+                <th className="gender-options">Non-Binary</th>
                 <th className="gender-options">Prefer not to disclose</th>
               </tr>
               <tr>
@@ -46,7 +46,7 @@ class Form extends React.Component {
           <p id="h4">Please describe the emergency situation:</p>
           <textarea rows="5"></textarea>
           <div className="btn-block">
-            <button type="submit">Submit</button>
+            <button>Submit</button>
           </div>
         </form>
       </div>
