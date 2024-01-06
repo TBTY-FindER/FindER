@@ -7,7 +7,7 @@ class Form extends React.Component {
         <form action="/">
           <p id="h1">Emergency Information From</p>
           <p id="h4">
-            Address of the incident<span>*</span>
+            Current Locaiton<span>*</span>
           </p>
           <input
             placeholder="Enter your address"
@@ -23,7 +23,7 @@ class Form extends React.Component {
                 <th className="first-col"></th>
                 <th className="gender-options">Female</th>
                 <th className="gender-options">Male</th>
-                <th className="gender-options">Non-Binary</th>
+                <th className="gender-options">Other</th>
                 <th className="gender-options">Prefer not to disclose</th>
               </tr>
               <tr>
