@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import introVoice from "../sounds/Intro.mp3";
 
-const VoiceAnimation = () => {
+const VoiceAnimation = ({ voice, buttonHandler }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const audio = new Audio(introVoice);
 
@@ -19,11 +18,11 @@ const VoiceAnimation = () => {
   }, []);
 
   return (
-    <div className={`loader`}>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
+    <div className={`voice`}>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
     </div>
   );
 };
