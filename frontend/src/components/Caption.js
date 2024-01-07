@@ -1,6 +1,5 @@
 import React from "react";
 import AWS from "aws-sdk";
-import { useState } from "react";
 
 const Caption = ({ caption, advice, updateCaption }) => {
   const polly = new AWS.Polly({});
