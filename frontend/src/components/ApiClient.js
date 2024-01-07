@@ -1,5 +1,5 @@
 
-const serverUrl = "http://localhost:3000";
+const serverUrl = process.env.REACT_APP_BASE_URL || "http://localhost:3000";
 
 const ApiClient = {
     GetRecommendation: async function(person) {
