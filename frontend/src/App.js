@@ -10,6 +10,7 @@ function App() {
   const [situation, setSituation] = useState("");
   const [age, setAge] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [geolocation, setGeolocation] = useState({});
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -27,8 +28,12 @@ function App() {
     setAge(age);
   };
 
+  const geolocationHandler = (geolocation) => {
+    setGeolocation(geolocation);
+  };
+
   const submitHandler = () => {
-    const person = new Person(age, gender, situation, address);
+    const person = new Person(age, gender, situation, geolocation);
     // person class
     // you will post person to backend
     setSubmit(true);
@@ -43,6 +48,7 @@ function App() {
           situationHandler={situationHandler}
           submitHandler={submitHandler}
           ageHandler={ageHandler}
+          geolocationHandler={geolocationHandler}
         />
       ) : (
         <SecondPage
