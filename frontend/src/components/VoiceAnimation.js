@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import introVoice from "../sounds/Intro.mp3";
 import situationVoice from "../sounds/Situation.mp3";
 import genderVoice from "../sounds/Gender.mp3";
-import ageVoice from "../sounds/Gender.mp3";
+import ageVoice from "../sounds/Age.mp3";
 
 const voices = [introVoice, ageVoice, genderVoice, situationVoice];
 
-const VoiceAnimation = ({ showForm }) => {
+const VoiceAnimation = ({ showForm, updateSpeech }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [voiceIndex, setVoiceIndex] = useState(0);
   const [speechInput, setSpeechInput] = useState([]); // user's voice input
@@ -71,10 +71,7 @@ const VoiceAnimation = ({ showForm }) => {
     recognition.onresult = (e) => {
       const current = e.resultIndex;
       const transcript = e.results[current][0].transcript;
-      console.log(transcript);
-      const speechInputCopy = [...speechInput];
-      speechInputCopy.push(transcript);
-      setSpeechInput(speechInputCopy);
+      updateSpeech(transcript);
     };
   };
 

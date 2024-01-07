@@ -21,6 +21,7 @@ const Home = ({
   const [loading, setLoading] = useState(true);
   const [permissionPage, setPermissionPage] = useState(true);
   const [address, setAddress] = useState("");
+  const [speechInput, setSpeechInput] = useState([]); // user's voice input
 
   const endPermissionPage = () => {
     setPermissionPage(false);
@@ -76,6 +77,10 @@ const Home = ({
     }
   }
 
+  const updateSpeech = (text) => {
+    setSpeechInput((prev) => [...prev, text]);
+  };
+
   const handlePermission = () => {
     // play the complete voice
     setPermissionDenied(true);
@@ -118,7 +123,10 @@ const Home = ({
               ageHandler={ageHandler}
             />
           ) : (
-            <VoiceAnimation showForm={handlePermission} />
+            <VoiceAnimation
+              showForm={handlePermission}
+              updateSpeech={updateSpeech}
+            />
           )}
         </>
       )}
