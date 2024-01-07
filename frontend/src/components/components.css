@@ -468,3 +468,48 @@ textarea {
 /* #d2494b;
    #f5dadf;
 */
+
+.skip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100px;
+  height: 40px;
+  border: none;
+  padding: 0px 20px;
+  background: pink;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 20px 30px -7px rgba(97, 118, 238, 0.5);
+  transition-duration: 0.3s;
+}
+
+.svg-skip {
+  width: 12px;
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  fill: white;
+  transition-duration: 0.3s;
+}
+
+.skip:hover {
+  color: transparent;
+}
+
+.skip:hover svg {
+  right: 43%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition-duration: 0.3s;
+}
+
+.skip:active {
+  transform: translate(3px, 3px);
+  transition-duration: 0.3s;
+}

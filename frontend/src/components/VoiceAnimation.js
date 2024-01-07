@@ -3,6 +3,7 @@ import introVoice from "../sounds/Intro.mp3";
 import situationVoice from "../sounds/Situation.mp3";
 import genderVoice from "../sounds/Gender.mp3";
 import ageVoice from "../sounds/Age.mp3";
+import SkipButton from "./SkipButton";
 
 const voices = [introVoice, ageVoice, genderVoice, situationVoice];
 
@@ -75,13 +76,16 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
   };
 
   return (
-    <div className={`voice`}>
-      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
-      {buttonAppear ? <button onClick={handleClick}>Next</button> : <></>}
-    </div>
+    <>
+      <div className={`voice`}>
+        <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+        <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+        <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+        <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+        {buttonAppear ? <button onClick={handleClick}>Next</button> : <></>}
+      </div>
+      <SkipButton clickHandler={showForm} />
+    </>
   );
 };
 
