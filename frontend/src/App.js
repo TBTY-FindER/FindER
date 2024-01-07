@@ -6,6 +6,9 @@ import { Person } from "./classes/Person";
 import ApiClient from "./components/ApiClient";
 import { geocode } from "./components/geocode";
 import HoldOnVoice from "./sounds/HolnOn.mp3";
+import Caption from "./components/Caption";
+import ReadyVoice from "./sounds/Ready.mp3";
+
 function App() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
@@ -15,6 +18,8 @@ function App() {
   const [geolocation, setGeolocation] = useState({});
   const [response, setResponse] = useState([{}]);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
+  const [caption, setCaption] = useState(".....");
+  const [responseUpdated, setResponseUpdated] = useState(false);
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -34,6 +39,10 @@ function App() {
 
   const geolocationHandler = (geolocation) => {
     setGeolocation(geolocation);
+  };
+
+  const updateCaption = (caption) => {
+    setCaption(caption);
   };
 
   useEffect(() => {
@@ -80,21 +89,33 @@ function App() {
   }, [readyToSubmit, age, gender, situation, geolocation, address]);
 
   useEffect(() => {
-    if (response.length > 1) {
+    if (response.length > 1 && !responseUpdated) {
       console.log(response);
       setSubmit(true);
       setReadyToSubmit(false);
+      const readyAudio = new Audio(ReadyVoice);
+      readyAudio.play();
+      updateCaption(
+        "The list of ER rooms is now ready for you. Please proceed to view your options."
+      );
+      setResponseUpdated(true);
     }
   }, [response]);
 
   const submitHandler = () => {
     const holdOnAudio = new Audio(HoldOnVoice);
     holdOnAudio.play();
+    updateCaption(
+      "Please hold on while we compile a list of ER rooms suitable for your needs."
+    );
     setReadyToSubmit(true);
   };
 
   return (
     <div className="container">
+      <div className="caption">
+        <Caption caption={caption} />
+      </div>
       {!submit ? (
         <Home
           addressHandler={addressHandler}
@@ -103,6 +124,7 @@ function App() {
           submitHandler={submitHandler}
           ageHandler={ageHandler}
           geolocationHandler={geolocationHandler}
+          updateCaption={updateCaption}
         />
       ) : (
         <SecondPage

@@ -58,18 +58,14 @@ class Form extends React.Component {
             onChange={(e) => this.setState({ address: e.target.value })}
           />
 
-          <p id="h4">
-            Enter your Date of Birth<span>*</span>
-          </p>
+          <p id="h4">Enter your Date of Birth</p>
           <input
             type="date"
             className="input-age"
             value={this.state.age}
             onChange={(e) => this.setState({ age: e.target.value })}
           />
-          <p id="h4">
-            What is the individual's gender assigned birth?<span>*</span>
-          </p>
+          <p id="h4">What is the individual's gender?</p>
           <table>
             <tbody>
               <tr>

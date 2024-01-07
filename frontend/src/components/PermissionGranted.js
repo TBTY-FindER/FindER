@@ -1,7 +1,7 @@
 import React from "react";
 import "./components.css";
 
-const PermissionGranted = ({ handleButton }) => {
+const PermissionGranted = ({ handleButton, updateCaption }) => {
   return (
     <div className="card-permission">
       <div className="header">
@@ -36,7 +36,16 @@ const PermissionGranted = ({ handleButton }) => {
           </p>
         </div>
         <div className="actions">
-          <button type="button" className="reload" onClick={handleButton}>
+          <button
+            type="button"
+            className="reload"
+            onClick={() => {
+              handleButton();
+              updateCaption(
+                "Welcome to FindER! We guide you to the optimal emergency room quickly, ensuring timely and efficient care. Press 'Start' to begin."
+              );
+            }}
+          >
             Start
           </button>
         </div>
