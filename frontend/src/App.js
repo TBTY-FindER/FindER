@@ -2,6 +2,7 @@ import Home from "./screens/Home";
 import SecondPage from "./screens/HospitalList";
 import "./styles.css";
 import { useState } from "react";
+import { Person } from "./classes/Person";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -22,12 +23,15 @@ function App() {
     setSituation(situation);
   };
 
-  const submitHandler = () => {
-    setSubmit(true);
-  };
-
   const ageHandler = (age) => {
     setAge(age);
+  };
+
+  const submitHandler = () => {
+    const person = new Person(age, gender, situation, address);
+    // person class
+    // you will post person to backend
+    setSubmit(true);
   };
 
   return (
