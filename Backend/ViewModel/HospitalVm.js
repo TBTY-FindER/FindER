@@ -1,9 +1,8 @@
 const HospitalLocal = require("../Model/HospitalLocal");
 
 class HospitalVm {
-    constructor(name, distance, waitTime, note, type, city, phone, address, website, availability, age, services) {
+    constructor(name, waitTime, note, type, city, phone, address, website, availability, age, services) {
         this.name = name;
-        this.distance = distance;
         this.waitTime = waitTime;
         this.note = note;
         this.type = type;
@@ -11,7 +10,7 @@ class HospitalVm {
         this.phone = phone;
         this.address = address;
         this.website = website;
-        this.availability = availability;``
+        this.availability = availability;
         this.age = age;
         this.services = services;
     }
@@ -34,7 +33,17 @@ class HospitalVm {
         this.distance = newDistance;
     }
 
+    getDuration(){
+        return this.duration;
+    }
+
+    setDuration(newDuration){
+        this.duration = newDuration;
+    }
     
+    setTotalTime(totalTime){
+        this.totalTime = totalTime;
+    }
 }
 
 module.exports = HospitalVm;

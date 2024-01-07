@@ -369,6 +369,19 @@ form {
   animation: slideIn 1s forwards;
 }
 
+.form-submit {
+  animation: slideUp 1s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-200%);
+  }
+}
+
 #h1 {
   font-size: 24px;
   font-weight: 400;
@@ -376,7 +389,7 @@ form {
 }
 
 #h4 {
-  margin: 20px 0 2px;
+  margin: 20px 0 10px;
   color: #000;
 }
 
@@ -405,6 +418,22 @@ form {
 }
 
 .input:hover,
+textarea:hover {
+  outline: none;
+  border: 1px solid #000;
+}
+
+.input-age {
+  width: calc(100% - 10px);
+  padding: 5px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  vertical-align: middle;
+  background-color: #f7f7f7;
+  font-size: 20px;
+}
+
+.input-age:hover,
 textarea:hover {
   outline: none;
   border: 1px solid #000;

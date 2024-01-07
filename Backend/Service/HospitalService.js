@@ -2,7 +2,7 @@ const AHS = require("../AHS/AHS");
 const HospitalMetadata = require("../AHS/hospital_info.json");
 const HospitalLocal = require("../Model/HospitalLocal");
 const HospitalVm = require("../ViewModel/HospitalVm");
-
+const DistanceFinder = require("../Maps/DistanceFinder")
 let Ahs = new AHS()
 
 const HospitalService = {
@@ -12,7 +12,10 @@ const HospitalService = {
         let hoptitalInfo = await Ahs.buildClasses();
         this.initCache(hoptitalInfo);
     },
-
+    getEstimateSeconds: function(WaitTime,TravelTime){
+        let currentTimeInSeconds = new Date().getTime() / 1000;
+        return (currentTimeInSeconds + WaitTime + TravelTime)
+    },
     // inits the cache with the metadata
     initCache: function(hoptitalInfo) {
         this.hospitalsCache.length = 0;
@@ -25,16 +28,38 @@ const HospitalService = {
         }
     },
 
-    mapHospitalLocal(hospitalCache, hospitalDistTime) {
+    mapHospitalLocal(hospitalCache, distanceDurationObject) {
         return hospitalCache.map(hospLoc => {
-            return new HospitalVm(hospLoc.name, 10, 8, hospitalCache.note, hospitalCache.type, hospitalCache.city, hospitalCache.phone, hospitalCache.address, hospitalCache.website, hospitalCache.availability, 
-                hospitalCache.age, hospitalCache.services);
+            let hospitalVm = new HospitalVm(hospLoc.name, hospLoc.waitTime, hospLoc.note, hospLoc.type, hospLoc.city, hospLoc.phone, hospLoc.address, hospLoc.website, hospLoc.availability, 
+                hospLoc.age, hospLoc.services);
+            // console.log(hospitalVm)
+            hospitalVm.setDistance(distanceDurationObject[hospLoc.name].distance)
+            hospitalVm.setDuration(distanceDurationObject[hospLoc.name].duration)
+            let waitTimeInSeconds = (hospLoc.waitTime.hours*3600) + (hospLoc.waitTime.minutes*60) 
+            let total = this.getEstimateSeconds(waitTimeInSeconds,distanceDurationObject[hospLoc.name].duration.value)
+            hospitalVm.setTotalTime(total)
+            return hospitalVm
         })
     },
 
-    getRecommendation: async function(lat, long) {
-        return [];
+    getRecommendationForUrgent: async function(lat, long) {
+        let matrix = await DistanceFinder.DistanceToEverything({lat:lat,long:long})
+        console.log(matrix)
+        console.log(Date.now())
+        let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
+        // console.log(a)
+        hospitals.sort((a, b) => (a.distance.value) - (b.distance.value));
+        console.log(hospitals[0])
+        return hospitals;
+    },
+
+    getRecommendationForNonUrgent: async function(lat,long){
+        let matrix = await DistanceFinder.DistanceToEverything({lat:lat,long:long})
+        let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
+        hospitals.sort((a, b) => (a.totalTime) - (b.totalTime));
+        return hospitals
     }
 };
+
 
 module.exports = HospitalService;

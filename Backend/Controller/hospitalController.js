@@ -13,10 +13,12 @@ const HospitalController = {
     },
 
     getRecommendation: async function() {
+        // let lat = 52.268112;
+        // let long = -113.811241;
         let lat = 53.523220;
         let long = -113.526321;
-        let recommendHospitals = await HospitalService.getRecommendation(lat, long);
-        console.log(JSON.stringify(recommendHospitals));
+        let recommendHospitals = await HospitalService.getRecommendationForNonUrgent(lat, long);
+        return recommendHospitals
     }
 };
 

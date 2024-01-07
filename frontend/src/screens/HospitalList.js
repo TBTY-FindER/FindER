@@ -3,8 +3,7 @@ import Typography from "@mui/material/Typography";
 import HospitalList from "../components/HospitalListItem";
 import Sidebar from "../components/Sidebar";
 
-function SecondPage({ address, gender, age, situation }) {
-  
+function SecondPage({ address, gender, situation }) {
   const [hospitals, setHospitals] = useState([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
@@ -30,22 +29,28 @@ function SecondPage({ address, gender, age, situation }) {
   };
 
   return (
-    <div style={{
-      width: '100%',
-      height: '100vh', // Fixed height of the whole page
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)',
-    }}>
-      <Typography variant="h2" component="h1" style={{
-        textAlign: 'center',
-        margin: '40px 0',
-        width: '100%',
-        maxWidth: '800px',
-        fontSize: '2.5rem', // Smaller font size for the header
-      }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100vh", // Fixed height of the whole page
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
+      }}
+    >
+      <Typography
+        variant="h2"
+        component="h1"
+        style={{
+          textAlign: "center",
+          margin: "40px 0",
+          width: "100%",
+          maxWidth: "800px",
+          fontSize: "2.5rem", // Smaller font size for the header
+        }}
+      >
         Nearby Hospitals
       </Typography>
       <div style={toggleIconStyle} onClick={toggleSidebar}>
