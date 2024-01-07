@@ -63,16 +63,17 @@ checkFirstResponse = async (
     });
 
     // prompt
-  const message = `The patient's gender is ${gender}, and the age is ${age}. They are seeking medical attention and this is the situation that they have described (it may be blank): ${situation}. Give the best advice for them to do until they arrive to the hospital depending on how urgent it is. Keep the response concise to about 2 bullet points.`;
+  const message = `The patient's gender is ${gender}, and the age is ${age}. They are seeking medical attention and this is the situation that they have described (it may be blank): ${situation}. Give the best advice for them to do until they arrive to the hospital. Format the response as a valid JSON that provides helpful tip to the user specific to their situation if not blank. Keep the response concise to two to three sentences and call the key of the response to be advice.`;
 
     // use gpt
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4-1106-preview",
       messages: [{ role: "user", content: message }],
+      response_format: { "type": "json_object" },
       temperature: 0,
       max_tokens: 100,
     });
-    return response.choices[0].message.content;
+    return JSON.parse(response.choices[0].message.content);
   } catch (err) {
     return err.message;
   }

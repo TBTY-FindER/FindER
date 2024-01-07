@@ -4,7 +4,7 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 import { Person } from "./classes/Person";
 import ApiClient from "./components/ApiClient";
-
+import { geocode } from "./components/geocode";
 function App() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
@@ -37,10 +37,40 @@ function App() {
 
   useEffect(() => {
     if (readyToSubmit) {
-      const person = new Person(age, gender, situation, geolocation);
-      console.log(address);
+      if (typeof address === 'string'){
+        // switch address to geolocation
+        console.log(address)
+        geocode(address).then((result) => {
+        setAddress(result)
+        console.log(result)
+        const person = new Person(age, gender, situation, result);
+        console.log(person)
+        console.log(geolocation)
       // perform api call here!
-
+        ApiClient.GetRecommendation(person).then((r) => {
+          console.log(r)
+          setResponse(r)})
+        .catch((e) => {
+          console.log(e)
+        });
+        }).catch((err) => {
+          console.log(err)
+        });
+      }
+      else
+      {
+        console.log("isobject")
+        const person = new Person(age, gender, situation, address);
+        console.log(person)
+        console.log(geolocation)
+        // perform api call here!
+        ApiClient.GetRecommendation(person).then((result) => {
+        console.log(result)
+        setResponse(result)
+        }).catch((err) => {
+          throw err
+        });
+      }
       setSubmit(true);
       setReadyToSubmit(false);
     }
