@@ -6,12 +6,16 @@ import Sidebar from "../components/Sidebar";
 import IconButton from "@mui/material/IconButton";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { geocode } from "../components/geocode";
+import ApiClient from "../components/ApiClient";
+import { Person } from "../classes/Person";
 
 function SecondPage({ address, gender, age, situation, response }) {
   const [hospitals, setHospitals] = useState([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [recommendResp, setRecommendResp] = useState(response);
 
   // useEffect(() => {
   //   fetch("http://localhost:3000/api/hospitals")
@@ -34,9 +38,11 @@ function SecondPage({ address, gender, age, situation, response }) {
     setSidebarVisible(!sidebarVisible);
   };
 
-  const handleResubmit = (formData) => {
-    console.log("Resubmitted data:", formData);
-    // Handle the resubmitted data, e.g., send to an API or update state
+  const handleResubmit = async (formData) => {
+    // get location
+    let latlng = await geocode(formData.address);
+    let hospitals = await  ApiClient.GetRecommendation(new Person(formData.age, formData.gender, formData.situation, latlng));
+    setRecommendResp(hospitals);
   };
 
   const handleHospitalClick = (hospital) => {
@@ -77,7 +83,7 @@ function SecondPage({ address, gender, age, situation, response }) {
         {sidebarVisible ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
       </IconButton>
       <HospitalList
-        hospitals={response[1]}
+        hospitals={recommendResp[1]}
         onHospitalClick={handleHospitalClick}
       />
       <Sidebar
