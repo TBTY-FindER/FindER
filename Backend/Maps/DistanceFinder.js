@@ -40,7 +40,11 @@ async function DistanceToEverything(origin){
         let hospitalDists = res1.data.rows[0].elements.concat(res2.data.rows[0].elements)
         // console.log(hospitalDists.length)
         // console.log(hospitalDists)
-        return [hospitals,hospitalDists]
+        let hospitalDuration = {}
+        for (let i = 0;i<hospitals.length;i++){
+            hospitalDuration[hospitals[i]] = hospitalDists[i]
+        }
+        return hospitalDuration
     }
     catch{
         (err) => {
