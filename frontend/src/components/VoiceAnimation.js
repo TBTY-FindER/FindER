@@ -18,9 +18,17 @@ const VoiceAnimation = ({ showForm }) => {
     audioRef.current.play();
 
     // Event listener for when the audio ends
-    const handleAudioEnd = () => {
+    const handleAudioEnd = async () => {
       setIsPlaying(false);
-      setButtonAppear(true);
+      // take user's voice input
+      if (voiceIndex === 2) {
+        await handleVoiceInput();
+        showForm();
+      } else if (voiceIndex !== 0) {
+        handleVoiceInput();
+      } else {
+        setButtonAppear(true);
+      }
     };
     audioRef.current.addEventListener("ended", handleAudioEnd);
 
@@ -37,18 +45,11 @@ const VoiceAnimation = ({ showForm }) => {
     audioRef.current.currentTime = 0; // Reset the audio playback to the start
 
     // take user's voice input
-    if (voiceIndex !== 0) {
-      handleVoiceInput();
-    }
-
-    if (voiceIndex === 2) {
-      audioRef.current.pause();
-      showForm();
-    }
+    setVoiceIndex((prevIndex) => prevIndex + 1);
   };
 
   // function that take user's voice input and stop when user stop talking
-  const handleVoiceInput = () => {
+  const handleVoiceInput = async () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
