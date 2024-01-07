@@ -59,7 +59,7 @@ function App() {
     setGeolocation(geolocation);
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (age, gender, address, situation) => {
     const holdOnAudio = new Audio(HoldOnVoice);
     holdOnAudio.play();
     updateCaption(

@@ -21,7 +21,7 @@ class Form extends React.Component {
     this.setState({ gender: e.target.value });
   };
 
-  submitHandler = (e) => {
+  submitHandler = async (e) => {
     e.preventDefault();
     this.state.addressHandler(this.state.address);
     this.state.genderHandler(this.state.gender);
@@ -35,11 +35,12 @@ class Form extends React.Component {
       age--;
     }
     this.state.ageHandler(age);
+    await this.state.submitHandler(age, this.state.gender, this.state.address, this.state.situation);
 
     this.setState({ submitted: true });
-    setTimeout(() => {
-      this.state.submitHandler();
-    }, 1500);
+    // setTimeout(() => {
+    //   
+    // }, 1500);
   };
 
   render() {
