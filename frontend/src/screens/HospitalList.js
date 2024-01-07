@@ -3,12 +3,11 @@ import Typography from "@mui/material/Typography";
 import HospitalList from "../components/HospitalListItem";
 import HospitalDetailsModal from "../components/HospitalDetailsModal";
 import Sidebar from "../components/Sidebar";
-import IconButton from '@mui/material/IconButton';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from "@mui/material/IconButton";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-
-function SecondPage({ address, gender, age, situation }) {
+function SecondPage({ address, gender, age, situation, response }) {
   const [hospitals, setHospitals] = useState([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState(null);
@@ -77,7 +76,10 @@ function SecondPage({ address, gender, age, situation }) {
       <IconButton onClick={toggleSidebar} style={toggleIconStyle}>
         {sidebarVisible ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
       </IconButton>
-      <HospitalList hospitals={hospitals} onHospitalClick={handleHospitalClick} />
+      <HospitalList
+        hospitals={hospitals}
+        onHospitalClick={handleHospitalClick}
+      />
       <Sidebar
         isVisible={sidebarVisible}
         address={address}

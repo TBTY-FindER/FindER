@@ -2,7 +2,7 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div class="loading">
+    <div className="loading">
       <svg height="120px" width="180px" viewBox="0 0 64 48">
         <polyline
           id="back"
