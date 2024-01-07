@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import introVoice from "../sounds/Intro.mp3";
 
-const VoiceAnimation = ({ voice, buttonHandler }) => {
+const VoiceAnimation = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const audio = new Audio(introVoice);
 
