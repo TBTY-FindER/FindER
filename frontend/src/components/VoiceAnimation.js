@@ -84,7 +84,9 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
         <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
         {buttonAppear ? <button onClick={handleClick}>Next</button> : <></>}
       </div>
-      <SkipButton clickHandler={showForm} />
+      <div className="skip-holder">
+        <SkipButton clickHandler={showForm} />
+      </div>
     </>
   );
 };
