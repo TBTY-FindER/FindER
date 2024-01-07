@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import PermissionAlert from "../components/PermissionAlert";
 import PermissionGranted from "../components/PermissionGranted";
-import "./screen.css";
 import VoiceAnimation from "../components/VoiceAnimation";
 import Loader from "../components/Loader";
 import Form from "../components/Form";
+import "./screen.css";
+import { reverseGeocode } from "../components/reverse_geocode.js";
 
 const Home = ({ addressHandler, genderHandler, situationHandler }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
@@ -39,8 +40,11 @@ const Home = ({ addressHandler, genderHandler, situationHandler }) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
 
-        // Set address and call addressHandler after getting position
-        const currentAddress = `lat: ${position.coords.latitude}, long: ${position.coords.longitude}`;
+        const currentAddress = await reverseGeocode(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+
         setAddress(currentAddress);
         setLocationPermission(false);
         setLoading(false);
@@ -62,7 +66,7 @@ const Home = ({ addressHandler, genderHandler, situationHandler }) => {
   useEffect(() => {
     micPermission();
     geoPermission();
-  });
+  }, []);
 
   return (
     <div className="home">

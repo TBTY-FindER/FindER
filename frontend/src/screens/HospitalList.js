@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
-import HospitalList from '../components/HospitalListItem';
+import React, { useState, useEffect } from "react";
+import Typography from "@mui/material/Typography";
+import HospitalList from "../components/HospitalListItem";
 
 // const dummyHospitals = [
 //   {
@@ -20,32 +20,45 @@ import HospitalList from '../components/HospitalListItem';
 //   // Add more hospitals as needed
 // ];
 
+// Using dummy data for now
+// useEffect(() => {
+//   setHospitals(dummyHospitals);
+// }, []);
 
-
-  // Using dummy data for now
-  // useEffect(() => {
-  //   setHospitals(dummyHospitals);
-  // }, []);
-
-function SecondPage() {
+function SecondPage({ address, gender, situation }) {
   const [hospitals, setHospitals] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/hospitals')
-      .then(response => response.json())
-      .then(data => setHospitals(data.body))
-      .catch(error => console.error('Error fetching hospitals:', error));
+    fetch("http://localhost:3000/api/hospitals")
+      .then((response) => response.json())
+      .then((data) => setHospitals(data.body))
+      .catch((error) => console.error("Error fetching hospitals:", error));
   }, []);
 
   return (
-    <div style={{
-      width: '100vw',
-      height: '100vh',
-      overflow: 'auto',
-      padding: '20px',
-      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)', // Example gradient
-    }}>
-      <Typography variant="h2" component="h1" style={{ textAlign: 'center', margin: '20px 0' }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100vh",
+        overflowY: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        padding: "40px 20px",
+        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
+      }}
+    >
+      <Typography
+        variant="h2"
+        component="h1"
+        style={{
+          textAlign: "center",
+          margin: "40px 0", // Increased top and bottom margin
+          width: "100%",
+          // Removed the maxWidth restriction to allow the title to be as wide as the content
+        }}
+      >
         Nearby Hospitals
       </Typography>
       <HospitalList hospitals={hospitals} />

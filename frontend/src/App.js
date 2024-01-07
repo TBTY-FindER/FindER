@@ -1,7 +1,7 @@
 import Home from "./screens/Home";
 import SecondPage from "./screens/HospitalList";
 import "./styles.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const [address, setAddress] = useState("");
