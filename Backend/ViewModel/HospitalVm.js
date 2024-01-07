@@ -41,6 +41,9 @@ class HospitalVm {
         this.duration = newDuration;
     }
     
+    setTotalTime(totalTime){
+        this.totalTime = totalTime;
+    }
 }
 
 module.exports = HospitalVm;
