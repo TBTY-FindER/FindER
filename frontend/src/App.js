@@ -7,6 +7,7 @@ function App() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [situation, setSituation] = useState("");
+  const [submit, setSubmit] = useState(false);
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -22,12 +23,15 @@ function App() {
 
   return (
     <div className="container">
-      <Home
-        addressHandler={addressHandler}
-        genderHandler={genderHandler}
-        situationHandler={situationHandler}
-      />
-      <SecondPage address={address} gender={gender} situation={situation} />
+      {!submit ? (
+        <Home
+          addressHandler={addressHandler}
+          genderHandler={genderHandler}
+          situationHandler={situationHandler}
+        />
+      ) : (
+        <SecondPage address={address} gender={gender} situation={situation} />
+      )}
     </div>
   );
 }

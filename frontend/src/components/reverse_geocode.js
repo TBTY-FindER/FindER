@@ -1,5 +1,5 @@
 async function reverseGeocode(lat, lng) {
-  const GOOGLE_MAPS_API_KEY = "AIzaSyDjQbx263ObwaevID54vamOXzUc8FujHRQ";
+  const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`;
 
   try {
