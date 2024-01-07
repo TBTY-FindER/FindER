@@ -1,86 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Form from './Form'; // Import the Form component
 
-function SidebarContent({ address, setAddress, gender, setGender, age, setAge, situation, setSituation }) {
+function SidebarContent({ initialAddress, initialGender, initialAge, initialSituation, onResubmit }) {
+    const [address, setAddress] = useState(initialAddress);
+    const [gender, setGender] = useState(initialGender);
+    const [age, setAge] = useState(initialAge);
+    const [situation, setSituation] = useState(initialSituation);
+    
     const contentStyle = {
       display: 'flex',
       flexDirection: 'column',
-      gap: '20px',
-      padding: '20px', // Add padding for spacing inside the sidebar
+      gap: '35px', // Increased gap for better spacing between sections
+      padding: '20px',
+      paddingTop: '60px',
     };
   
-    const inputStyle = {
+    const inputTextStyle = {
       padding: '10px',
       borderRadius: '5px',
       border: '1px solid #ccc',
-      background: '#f8f8f8', // Background color similar to the form's input
+      background: '#f8f8f8',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '1rem',
     };
   
     const labelStyle = {
       marginBottom: '5px',
       fontWeight: 'bold',
+      fontSize: '1.1rem',
+      lineHeight: '1.5',
+    };
+  
+    const textareaStyle = {
+      ...inputTextStyle,
+      overflowY: 'auto',
+      resize: 'none',
     };
   
     const radioGroupStyle = {
       display: 'flex',
-      flexDirection: 'column', // Stack radio buttons vertically
+      flexDirection: 'column',
       gap: '10px',
     };
+
+    const handleSubmit = () => {
+        onResubmit({ address, gender, age, situation });
+      };
   
     return (
       <div style={contentStyle}>
         <div>
-          <p id="h4">Current Location<span>*</span></p>
-          <input
-            type="text"
-            style={inputStyle}
+          <p style={labelStyle}>Current Location<span>*</span></p>
+          <textarea
+            style={{ ...textareaStyle, height: '60px' }}
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             placeholder="Enter your address"
-          />
+            rows={3}
+          ></textarea>
         </div>
         <div>
-          <p id="h4">What is the individual's birth assigned gender?<span>*</span></p>
-          <div style={radioGroupStyle}>
-            {["female", "male", "other", "prefer not to disclose"].map((option) => (
-              <label key={option}>
-                <input
-                  type="radio"
-                  value={option}
-                  checked={gender === option}
-                  onChange={(e) => setGender(e.target.value)}
-                />
-                {option.charAt(0).toUpperCase() + option.slice(1)} {/* Capitalize the first letter */}
-              </label>
-            ))}
-          </div>
+        <p style={labelStyle}>What is the individual's birth assigned gender?<span>*</span></p>
+        <div style={radioGroupStyle}>
+          {["female", "male", "other", "prefer not to disclose"].map((option) => (
+            <label key={option}>
+              <input
+                type="radio"
+                name="gender"
+                value={option}
+                checked={gender === option}
+                onChange={(e) => setGender(e.target.value)}
+              />
+              {option.charAt(0).toUpperCase() + option.slice(1)} {/* Capitalize the first letter */}
+            </label>
+          ))}
         </div>
+      </div>
         <div>
-          <p id="h4">Age<span>*</span></p>
+          <p style={labelStyle}>Age<span>*</span></p>
           <input
             type="number"
-            style={inputStyle}
+            style={inputTextStyle}
             value={age}
             onChange={(e) => setAge(e.target.value)}
           />
         </div>
         <div>
-          <p id="h4">Please describe the emergency situation:<span>*</span></p>
+          <p style={labelStyle}>Please describe the emergency situation:<span>*</span></p>
           <textarea
-            style={inputStyle}
+            style={{ ...textareaStyle, height: '100px' }} // Larger height for situation description
             rows="5"
             value={situation}
             onChange={(e) => setSituation(e.target.value)}
             placeholder="Describe the situation"
           ></textarea>
         </div>
+        <button onClick={handleSubmit} style={{ padding: '10px 20px', marginTop: '20px' }}>
+            Resubmit
+        </button>
       </div>
     );
-  }
+}  
   
 
-
-function Sidebar({ isVisible, closeSidebar, address, setAddress, gender, setGender, age, setAge, situation, setSituation }) {
+function Sidebar({ isVisible, initialAddress, initialGender, initialAge, initialSituation, onResubmit }) {
     const sidebarStyle = {
         height: '100vh',
         width: isVisible ? '300px' : '0', // Control width based on visibility
@@ -97,14 +120,11 @@ function Sidebar({ isVisible, closeSidebar, address, setAddress, gender, setGend
   return (
     <div style={sidebarStyle}>
       <SidebarContent
-        address={address}
-        setAddress={setAddress}
-        gender={gender}
-        setGender={setGender}
-        age={age} // Add age prop
-        setAge={setAge}
-        situation={situation}
-        setSituation={setSituation}
+        initialAddress={initialAddress}
+        initialGender={initialGender}
+        initialAge={initialAge}
+        initialSituation={initialSituation}
+        onResubmit={onResubmit}
       />
     </div>
   );

@@ -28,6 +28,11 @@ function SecondPage({ address, gender, age, situation }) {
     setSidebarVisible(!sidebarVisible);
   };
 
+  const handleResubmit = (formData) => {
+    console.log("Resubmitted data:", formData);
+    // Handle the resubmitted data, e.g., send to an API or update state
+  };
+
   return (
     <div
       style={{
@@ -59,11 +64,11 @@ function SecondPage({ address, gender, age, situation }) {
       <HospitalList hospitals={hospitals} />
       <Sidebar
         isVisible={sidebarVisible}
-        closeSidebar={toggleSidebar}
         address={address}
         gender={gender}
-        situation={situation}
         age={age}
+        situation={situation}
+        onResubmit={handleResubmit}
       />
     </div>
   );
