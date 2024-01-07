@@ -76,6 +76,7 @@ function App() {
       console.log(geolocation);
       let apiResult = await ApiClient.GetRecommendation(person);
       const readyAudio = new Audio(ReadyVoice);
+      holdOnAudio.pause();
       readyAudio.play();
       updateAdvice(apiResult[0].advice);
       setResponse(apiResult);
