@@ -10,6 +10,7 @@ const ApiClient = {
             "situation": person.situation,
             "gender": person.gender,
           };
+          console.log("Person: ", JSON.stringify(person));
 
           var requestOptions = {
             method: 'POST',

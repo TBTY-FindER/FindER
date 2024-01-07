@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 // import Form from './Form'; // Import the Form component
 
 function SidebarContent({ initialAddress, initialGender, initialAge, initialSituation, onResubmit, loading }) {
-    const [address, setAddress] = useState(initialAddress);
-    const [gender, setGender] = useState(initialGender);
-    const [age, setAge] = useState(initialAge);
-    const [situation, setSituation] = useState(initialSituation);
+    const initAddress = typeof initialAddress === 'string' ? initialAddress : "";
+    const initAge = initialAge == 0 || initialAge  ? initialAge : "";
+
+    const [address, setAddress] = useState(initAddress);
+    const [gender, setGender] = useState(`${initialGender}`);
+    const [age, setAge] = useState(initAge);
+    const [situation, setSituation] = useState(`${initialSituation}`);
     
     const contentStyle = {
       display: 'flex',
