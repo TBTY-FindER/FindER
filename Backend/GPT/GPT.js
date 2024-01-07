@@ -90,14 +90,15 @@ checkServices = async (
   gender = "unknown",
   age = "unknown",
   situation = "unknown",
-  hospital_name = "Innisfail Health Centre"
+  //   hospital_name = "Innisfail Health Centre"
+  services
 ) => {
   let services = [];
   try {
     const fs = require("fs").promises;
     const data = await fs.readFile("hospital_info.json", "utf8");
-    const json = JSON.parse(data);
-    services = json[hospital_name]["services"];
+    // const json = JSON.parse(data);
+    // services = json[hospital_name]["services"];
 
     try {
       const OpenAI = require("openai");
