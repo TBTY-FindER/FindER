@@ -37,44 +37,54 @@ function App() {
 
   useEffect(() => {
     if (readyToSubmit) {
-      if (typeof address === 'string'){
+      if (typeof address === "string") {
         // switch address to geolocation
-        console.log(address)
-        geocode(address).then((result) => {
-        setAddress(result)
-        console.log(result)
-        const person = new Person(age, gender, situation, result);
-        console.log(person)
-        console.log(geolocation)
-      // perform api call here!
-        ApiClient.GetRecommendation(person).then((r) => {
-          console.log(r)
-          setResponse(r)})
-        .catch((e) => {
-          console.log(e)
-        });
-        }).catch((err) => {
-          console.log(err)
-        });
-      }
-      else
-      {
-        console.log("isobject")
+        console.log(address);
+        geocode(address)
+          .then((result) => {
+            setAddress(result);
+            console.log(result);
+            const person = new Person(age, gender, situation, result);
+            console.log(person);
+            console.log(geolocation);
+            // perform api call here!
+            ApiClient.GetRecommendation(person)
+              .then((r) => {
+                console.log(r);
+                setResponse(r);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        console.log("isobject");
         const person = new Person(age, gender, situation, address);
-        console.log(person)
-        console.log(geolocation)
+        console.log(person);
+        console.log(geolocation);
         // perform api call here!
-        ApiClient.GetRecommendation(person).then((result) => {
-        console.log(result)
-        setResponse(result)
-        }).catch((err) => {
-          throw err
-        });
+        ApiClient.GetRecommendation(person)
+          .then((result) => {
+            console.log(result);
+            setResponse(result);
+          })
+          .catch((err) => {
+            throw err;
+          });
       }
+    }
+  }, [readyToSubmit, age, gender, situation, geolocation, address]);
+
+  useEffect(() => {
+    if (response.length > 1) {
+      console.log(response);
       setSubmit(true);
       setReadyToSubmit(false);
     }
-  }, [readyToSubmit, age, gender, situation, geolocation, address]);
+  }, [response]);
 
   const submitHandler = () => {
     setReadyToSubmit(true);
