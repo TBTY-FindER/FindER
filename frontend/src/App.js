@@ -35,8 +35,7 @@ function App() {
 
   const submitHandler = async () => {
     const person = new Person(age, gender, situation, geolocation);
-    console.log("Submit")
-    await ApiClient.GetRecommendation(person);
+    let hospitals =  await ApiClient.GetRecommendation(person);
     // person class
     // you will post person to backend
     setSubmit(true);
