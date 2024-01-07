@@ -1,7 +1,7 @@
 import Home from "./screens/Home";
 import SecondPage from "./screens/HospitalList";
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Person } from "./classes/Person";
 import ApiClient from "./components/ApiClient";
 
@@ -13,6 +13,7 @@ function App() {
   const [submit, setSubmit] = useState(false);
   const [geolocation, setGeolocation] = useState({});
   const [response, setResponse] = useState([{}]);
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -34,11 +35,19 @@ function App() {
     setGeolocation(geolocation);
   };
 
-  const submitHandler = async () => {
-    const person = new Person(age, gender, situation, geolocation);
-    let hospitals = await ApiClient.GetRecommendation(person);
-    setResponse(hospitals);
-    setSubmit(true);
+  useEffect(() => {
+    if (readyToSubmit) {
+      const person = new Person(age, gender, situation, geolocation);
+
+      // perform api call here!
+
+      setSubmit(true);
+      setReadyToSubmit(false);
+    }
+  }, [readyToSubmit, age, gender, situation, geolocation]);
+
+  const submitHandler = () => {
+    setReadyToSubmit(true);
   };
 
   return (

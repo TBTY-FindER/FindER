@@ -26,7 +26,6 @@ class Form extends React.Component {
     this.state.addressHandler(this.state.address);
     this.state.genderHandler(this.state.gender);
     this.state.situationHandler(this.state.situation);
-
     // calculate age
     const birthDate = new Date(this.state.age);
     const today = new Date();
