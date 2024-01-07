@@ -103,6 +103,10 @@ function App() {
           caption={caption}
           advice={advice}
           updateCaption={updateCaption}
+          address={address}
+          age={age}
+          gender={gender}
+          situation={situation}
         />
       </div>
       {transitionPage && (

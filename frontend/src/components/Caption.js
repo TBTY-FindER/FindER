@@ -1,7 +1,18 @@
 import React from "react";
 import AWS from "aws-sdk";
+import { personalAssistant } from "./gptAssistant.js";
 
-const Caption = ({ caption, advice, updateCaption }) => {
+const Caption = ({
+  caption,
+  advice,
+  updateCaption,
+  age,
+  gender,
+  address,
+  situation,
+}) => {
+  const [adviceGiven, setAdviceGiven] = useState(false);
+  const [initialized, setInitialized] = useState(false);
   const polly = new AWS.Polly({});
 
   AWS.config.update({
@@ -10,10 +21,21 @@ const Caption = ({ caption, advice, updateCaption }) => {
     region: "us-east-1", // Change to your region
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    updateCaption(advice);
+    if (!adviceGiven) {
+      setAdviceGiven(true);
+      updateCaption(advice);
+      setAdviceGiven(true);
+    } else {
+      if (!initialized) {
+        setInitialized(true);
+        let firstMessage = `The patient's gender is ${gender}, and the age is ${age}. ${situation}. You need to be the emergency assistant as the patient will have conversations with you.`;
+        let conversationHistory = [];
+        conversationHistory.push({ role: "user", content: firstMessage });
+        let response1 = await personalAssistant(conversationHistory);
+      }
+    }
 
     const params = {
       Text: `<speak>
