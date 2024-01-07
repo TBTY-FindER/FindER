@@ -30,55 +30,59 @@ function HospitalList({ hospitals, onHospitalClick, loading }) {
     paddingTop: "10px", // Use the passed paddingTop value
     paddingBottom: "20px",
     boxSizing: "border-box",
-    height: "100%"
+    height: "100%",
   };
 
   const loadingStyle = {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100%",
-  }
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  };
 
   return (
     <div className="listContainer" style={listContainerStyle}>
       {" "}
       {/* This div is the scrollable list container */}
-      {!loading && hospitals.map((hospital, index) => (
-        <Card
-          key={index}
-          style={cardStyle}
-          onClick={() => onHospitalClick(hospital)}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = hoverEffect.transform;
-            e.currentTarget.style.boxShadow = hoverEffect.boxShadow;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "";
-            e.currentTarget.style.boxShadow = "";
-          }}
-        >
-          <CardContent>
-            <Typography
-              variant="h6"
-              component="h2"
-              style={{ fontSize: "1.3rem", color: "#333" }}
-            >
-              {hospital.name}
-            </Typography>
-            <Typography
-              variant="body1"
-              style={{ fontSize: "1.1rem", color: "#555" }}
-            >
-              Distance: {hospital.distance.text} - Wait Time: {hospital.waitTime.hours} hours {hospital.waitTime.minutes} mins
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
-
-      {loading && <div style={loadingStyle}>
-        <Loader />
-      </div> }
+      {!loading &&
+        hospitals.map((hospital, index) => (
+          <Card
+            key={index}
+            style={cardStyle}
+            onClick={() => onHospitalClick(hospital)}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = hoverEffect.transform;
+              e.currentTarget.style.boxShadow = hoverEffect.boxShadow;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "";
+              e.currentTarget.style.boxShadow = "";
+            }}
+            className="hospitalCard"
+          >
+            <CardContent>
+              <Typography
+                variant="h6"
+                component="h2"
+                style={{ fontSize: "1.3rem", color: "#333" }}
+              >
+                {hospital.name}
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{ fontSize: "1.1rem", color: "#555" }}
+              >
+                Distance: {hospital.distance.text} - Wait Time:{" "}
+                {hospital.waitTime.hours} hours {hospital.waitTime.minutes} mins
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      {loading && (
+        <div style={loadingStyle}>
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }

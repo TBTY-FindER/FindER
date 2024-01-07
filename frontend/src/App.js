@@ -20,6 +20,11 @@ function App() {
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [caption, setCaption] = useState(".....");
   const [responseUpdated, setResponseUpdated] = useState(false);
+  const [advice, setAdvice] = useState("");
+
+  const updateAdvice = (advice) => {
+    setAdvice(advice);
+  };
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -80,6 +85,7 @@ function App() {
           .then((result) => {
             console.log(result);
             setResponse(result);
+            updateAdvice(result[0].advice);
           })
           .catch((err) => {
             throw err;
@@ -114,7 +120,11 @@ function App() {
   return (
     <div className="container">
       <div className="caption">
-        <Caption caption={caption} />
+        <Caption
+          caption={caption}
+          advice={advice}
+          updateCaption={updateCaption}
+        />
       </div>
       {!submit ? (
         <Home
@@ -125,6 +135,7 @@ function App() {
           ageHandler={ageHandler}
           geolocationHandler={geolocationHandler}
           updateCaption={updateCaption}
+          updateAdvice={updateAdvice}
         />
       ) : (
         <SecondPage

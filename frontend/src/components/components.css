@@ -568,7 +568,7 @@ textarea {
 }
 
 .card-caption {
-  height: 150px;
+  height: 300px;
   width: 300px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -638,4 +638,8 @@ textarea {
 /* Hover states */
 .card-caption:hover .card-description-caption {
   transform: translateY(100%);
+}
+
+.hospitalCard :hover {
+  cursor: pointer;
 }

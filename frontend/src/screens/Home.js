@@ -16,6 +16,7 @@ const Home = ({
   ageHandler,
   geolocationHandler,
   updateCaption,
+  updateAdvice,
 }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
