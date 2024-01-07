@@ -12,6 +12,7 @@ function App() {
   const [age, setAge] = useState("");
   const [submit, setSubmit] = useState(false);
   const [geolocation, setGeolocation] = useState({});
+  const [response, setResponse] = useState([{}]);
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -35,9 +36,8 @@ function App() {
 
   const submitHandler = async () => {
     const person = new Person(age, gender, situation, geolocation);
-    let hospitals =  await ApiClient.GetRecommendation(person);
-    // person class
-    // you will post person to backend
+    let hospitals = await ApiClient.GetRecommendation(person);
+    setResponse(hospitals);
     setSubmit(true);
   };
 
@@ -58,6 +58,7 @@ function App() {
           gender={gender}
           situation={situation}
           age={age}
+          response={response}
         />
       )}
     </div>

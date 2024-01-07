@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PermissionAlert from "../components/PermissionAlert";
 import PermissionGranted from "../components/PermissionGranted";
-import VoiceAnimation from "../components/VoiceAnimation";
 import Loader from "../components/Loader";
 import Form from "../components/Form";
 import "./screen.css";
 import { reverseGeocode } from "../components/reverse_geocode.js";
+import VoiceAnimation from "../components/VoiceAnimation.js";
+import completeVoice from "../sounds/Complete.mp3";
 
 const Home = ({
   addressHandler,
@@ -75,6 +76,13 @@ const Home = ({
     }
   }
 
+  const handlePermission = () => {
+    // play the complete voice
+    setPermissionDenied(true);
+    const completeAudio = new Audio(completeVoice);
+    completeAudio.play();
+  };
+
   // check if user has given permission to use microphone and location
   useEffect(() => {
     micPermission();
@@ -110,7 +118,7 @@ const Home = ({
               ageHandler={ageHandler}
             />
           ) : (
-            <VoiceAnimation />
+            <VoiceAnimation showForm={handlePermission} />
           )}
         </>
       )}
