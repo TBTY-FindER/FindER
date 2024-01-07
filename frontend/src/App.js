@@ -3,6 +3,7 @@ import SecondPage from "./screens/HospitalList";
 import "./styles.css";
 import { useState } from "react";
 import { Person } from "./classes/Person";
+import ApiClient from "./components/ApiClient";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -32,8 +33,9 @@ function App() {
     setGeolocation(geolocation);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     const person = new Person(age, gender, situation, geolocation);
+    let hospitals =  await ApiClient.GetRecommendation(person);
     // person class
     // you will post person to backend
     setSubmit(true);

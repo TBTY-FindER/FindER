@@ -42,7 +42,7 @@ const PermissionAlert = ({ handleButton }) => {
     <div className="card-permission">
       <div className="header">
         <div className="image-permission">
-          <p>X</p>
+          <p style={{ color: "white" }}>X</p>
         </div>
         <div className="content-permission">
           <span className="title-permission">Permission Requested</span>

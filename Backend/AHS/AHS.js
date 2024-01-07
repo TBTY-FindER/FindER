@@ -140,4 +140,38 @@ class AHS {
         return Hospitals
     }
 }
+
+async function test() {
+  const url =
+    "https://www.albertahealthservices.ca/Webapps/WaitTimes/api/waittimes/";
+
+  try {
+    let map = new Map()
+    const jsonData = await fetchHTML(url)
+    for (const i in jsonData){
+      console.log(i)
+      console.log()
+      for (const obj of jsonData[i].Emergency) { // urgent also exists, im just prototyping to play around with time
+        console.log(obj.Name)
+        console.log("Wait time:", obj.WaitTime)
+        if (obj.TimesUnavailable === false){ 
+          let parsedTime = parseTime(obj.WaitTime)
+          if (parsedTime != null) {
+            const curr = new Date();
+            curr.setHours(curr.getHours() + parsedTime.hours)
+            curr.setMinutes(curr.getMinutes() + parsedTime.minutes)
+            console.log("Current Time:", new Date().toLocaleTimeString())
+            console.log("Estimated Time:", curr.toLocaleTimeString())
+          }
+        }
+        else{
+          console.log("No estimate available.")
+        }
+      }
+      console.log()
+    }
+  } 
+  catch (error) {
+    console.error(error);}
+}
 module.exports = AHS
