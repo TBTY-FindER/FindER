@@ -1,5 +1,7 @@
 # FindER: Emergency Room Locator
 
+![Logo](./screenshots/logo.png)
+
 ## Role of FindER in Canadian Health Care System
 
 FindER is a dynamic web application designed to optimize emergency room visits. It calculates the shortest total time (wait time + travel time) and examines the distinct services provided by different emergency rooms. Then, depending on the emergency situations, the application chooses the most appropriate emergency room tailored for the user's emergency. This platform is particularly beneficial in countries like Canada, where publicly funded healthcare systems often face long waiting times. By directing patients to the most efficient and appropriate emergency room, FindER not only enhances patient care but also reduces the strain on medical professionals and healthcare facilities.
