@@ -56,7 +56,7 @@ const HospitalService = {
     getRecommendationForNonUrgent: async function(lat,long){
         let matrix = await DistanceFinder.DistanceToEverything({lat:lat,long:long})
         let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
-        hospitals.sort((a, b) => (a.totalTime) - (b.totalTime));
+        hospitals.sort((a, b) => ((a.totalTime) - (b.totalTime) || ((a.distance.value) - (b.distance.value))));
         return hospitals
     }
 };
