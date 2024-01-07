@@ -59,6 +59,7 @@ const HospitalService = {
         }
         hosps = this.filterHospitals(hosps, this.isOver18(recommendationReq.age));
         firstResponse = await firstResponse;
+        console.log(firstResponse);
         return [firstResponse, hosps, this.isUrgent(respUrgency)]
     },
 

@@ -13,6 +13,7 @@ const HospitalController = {
         let recommendationReq = new RecommendationReq(req.body.age, req.body.situation, req.body.gender, req.body.lat, req.body.lng);
         console.log(JSON.stringify(recommendationReq))
         let recommendHospitals = await HospitalService.getRecommendation(recommendationReq);
+        console.log(recommendHospitals[0]);
         return recommendHospitals
     }
 };
