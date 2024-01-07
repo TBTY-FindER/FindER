@@ -4,19 +4,26 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+const moment = require('moment');
+
 
 function HospitalDetailsModal({ open, hospitalDetails, onClose, urgent }) {
-  const conversion = (urgent) => {
-    let date;
-    console.log(urgent)
-    if (urgent){
-      date = new Date(new Date().getTime() + hospitalDetails.duration.value * 1000);
+  const conversion = (hospitalDetails,urgent) => {
+    let m = moment()
+    if (urgent) {
+      
+      const durationMs = hospitalDetails.duration.value*1000;
+      console.log("durationMs when urgent",durationMs)
+      m.add(durationMs, 'ms');
+    } else {
+      const waitingTimeMs = hospitalDetails.waitTime.hours * 3600*1000 +
+                           hospitalDetails.waitTime.minutes * 60*1000 + hospitalDetails.duration.value*1000
+      const totalTimeMs = waitingTimeMs + hospitalDetails.duration.value;
+      console.log("durationMs when not urgent",totalTimeMs)
+      m.add(totalTimeMs, 'ms');
     }
-    else{
-      date = new Date((hospitalDetails.totalTime)*1000)
-    }
-    console.log(date)
-    return date.toLocaleString();
+
+    return m.calendar();
   }
   const modalStyle = {
     position: 'absolute',
@@ -95,7 +102,7 @@ function HospitalDetailsModal({ open, hospitalDetails, onClose, urgent }) {
         </Typography>
         <Typography variant="body1" style={infoStyle}>
           <span style={fieldTitleStyle}>Estimate time for treatment:</span>
-          <span style={fieldValueStyle}>{conversion(urgent)}</span>
+          <span style={fieldValueStyle}>{conversion(hospitalDetails,urgent)}</span>
         </Typography>
 
         <Typography variant="body1" style={infoStyle}>
