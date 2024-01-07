@@ -7,6 +7,8 @@ import ApiClient from "./components/ApiClient";
 import { geocode } from "./components/geocode";
 import HoldOnVoice from "./sounds/HolnOn.mp3";
 import Loader from "./components/Loader";
+import Caption from "./components/Caption";
+import ReadyVoice from "./sounds/Ready.mp3";
 
 const loadingStyle = {
   display: "flex",
@@ -14,9 +16,6 @@ const loadingStyle = {
   alignItems: "center",
   height: "100%",
 }
-
-import Caption from "./components/Caption";
-import ReadyVoice from "./sounds/Ready.mp3";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -30,6 +29,10 @@ function App() {
   const [transitionPage, setTransitionPage] = useState(false);
   const [caption, setCaption] = useState(".....");
   const [responseUpdated, setResponseUpdated] = useState(false);
+
+  const updateCaption = (caption) => {
+    setCaption(caption);
+  };
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -54,7 +57,9 @@ function App() {
   const submitHandler = async () => {
     const holdOnAudio = new Audio(HoldOnVoice);
     holdOnAudio.play();
-    
+    updateCaption(
+      "Please hold on while we compile a list of ER rooms suitable for your needs."
+    );
     setTransitionPage(true);
 
     if (typeof address === "string") {
@@ -78,6 +83,9 @@ function App() {
 
     setTransitionPage(false);
     setSubmit(true);
+    updateCaption(
+      "The list of ER rooms is now ready for you. Please proceed to view your options."
+    );
   };
 
   return (
