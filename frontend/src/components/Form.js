@@ -9,8 +9,11 @@ class Form extends React.Component {
       addressHandler: props.addressHandler,
       address: props.address,
       submitHandler: props.submitHandler,
+      ageHandler: props.ageHandler,
       situation: "",
       gender: "",
+      age: "",
+      submitted: false,
     };
   }
 
@@ -20,19 +23,30 @@ class Form extends React.Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    console.log(this.state.address);
-    console.log(this.state.gender);
-    console.log(this.state.situation);
     this.state.addressHandler(this.state.address);
     this.state.genderHandler(this.state.gender);
     this.state.situationHandler(this.state.situation);
-    this.state.submitHandler();
+
+    // calculate age
+    const birthDate = new Date(this.state.age);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    this.state.ageHandler(age);
+
+    this.setState({ submitted: true });
+    setTimeout(() => {
+      this.state.submitHandler();
+    }, 2000);
   };
 
   render() {
     return (
       <div className="testbox">
-        <form action="/">
+        <form action="/" className={this.state.submitted ? "form-submit" : ""}>
           <p id="h1">Emergency Information From</p>
           <p id="h4">
             Current Locaiton<span>*</span>
@@ -44,9 +58,19 @@ class Form extends React.Component {
             value={this.state.address}
             onChange={(e) => this.setState({ address: e.target.value })}
           />
+
           <p id="h4">
             What is the individual's birth assigned gender?<span>*</span>
           </p>
+          <p id="h4">
+            Enter your Date of Birth<span>*</span>
+          </p>
+          <input
+            type="date"
+            className="input-age"
+            value={this.state.age}
+            onChange={(e) => this.setState({ age: e.target.value })}
+          />
           <table>
             <tbody>
               <tr>

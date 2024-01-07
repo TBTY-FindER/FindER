@@ -7,6 +7,7 @@ function App() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [situation, setSituation] = useState("");
+  const [age, setAge] = useState("");
   const [submit, setSubmit] = useState(false);
 
   const addressHandler = (address) => {
@@ -25,6 +26,10 @@ function App() {
     setSubmit(true);
   };
 
+  const ageHandler = (age) => {
+    setAge(age);
+  };
+
   return (
     <div className="container">
       {!submit ? (
@@ -33,9 +38,15 @@ function App() {
           genderHandler={genderHandler}
           situationHandler={situationHandler}
           submitHandler={submitHandler}
+          ageHandler={ageHandler}
         />
       ) : (
-        <SecondPage address={address} gender={gender} situation={situation} />
+        <SecondPage
+          address={address}
+          gender={gender}
+          situation={situation}
+          age={age}
+        />
       )}
     </div>
   );

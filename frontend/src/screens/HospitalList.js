@@ -25,7 +25,7 @@ import HospitalList from "../components/HospitalListItem";
 //   setHospitals(dummyHospitals);
 // }, []);
 
-function SecondPage({ address, gender, situation }) {
+function SecondPage({ address, gender, situation, age }) {
   const [hospitals, setHospitals] = useState([]);
 
   useEffect(() => {
@@ -36,22 +36,28 @@ function SecondPage({ address, gender, situation }) {
   }, []);
 
   return (
-    <div style={{
-      width: '100%',
-      height: '100vh', // Fixed height of the whole page
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)',
-    }}>
-      <Typography variant="h2" component="h1" style={{
-        textAlign: 'center',
-        margin: '40px 0',
-        width: '100%',
-        maxWidth: '800px',
-        fontSize: '2.5rem', // Smaller font size for the header
-      }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100vh", // Fixed height of the whole page
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
+      }}
+    >
+      <Typography
+        variant="h2"
+        component="h1"
+        style={{
+          textAlign: "center",
+          margin: "40px 0",
+          width: "100%",
+          maxWidth: "800px",
+          fontSize: "2.5rem", // Smaller font size for the header
+        }}
+      >
         Nearby Hospitals
       </Typography>
       <HospitalList hospitals={hospitals} />
