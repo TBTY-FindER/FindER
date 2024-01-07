@@ -32,8 +32,8 @@ const HospitalService = {
         })
     },
 
-    getRecommendation: async function() {
-        
+    getRecommendation: async function(lat, long) {
+        return [];
     }
 };
 
