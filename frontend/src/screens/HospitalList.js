@@ -43,7 +43,9 @@ function SecondPage({ address, gender, age, situation, response }) {
     // get location
     setLoading(true);
     let latlng = await geocode(formData.address);
-    let hospitals = await  ApiClient.GetRecommendation(new Person(formData.age, formData.gender, formData.situation, latlng));
+    let hospitals = await ApiClient.GetRecommendation(
+      new Person(formData.age, formData.gender, formData.situation, latlng)
+    );
     setRecommendResp(hospitals);
     setLoading(false);
   };
@@ -80,7 +82,7 @@ function SecondPage({ address, gender, age, situation, response }) {
           fontSize: "2.5rem", // Smaller font size for the header
         }}
       >
-        Nearby Hospitals
+        Our Recommendations
       </Typography>
       <IconButton onClick={toggleSidebar} style={toggleIconStyle}>
         {sidebarVisible ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
@@ -90,7 +92,7 @@ function SecondPage({ address, gender, age, situation, response }) {
         hospitals={recommendResp[1]}
         onHospitalClick={handleHospitalClick}
         loading={loading}
-        />
+      />
       <Sidebar
         isVisible={sidebarVisible}
         address={address}
