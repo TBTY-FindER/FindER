@@ -9,12 +9,22 @@ class Form extends React.Component {
       addressHandler: props.addressHandler,
       address: props.address,
       situation: "",
+      gender: "",
     };
   }
+
+  setGender = (e) => {
+    this.setState({ gender: e.target.value });
+  };
 
   submitHandler = (e) => {
     e.preventDefault();
     console.log(this.state.address);
+    console.log(this.state.gender);
+    console.log(this.state.situation);
+    this.state.addressHandler(this.state.address);
+    this.state.genderHandler(this.state.gender);
+    this.state.situationHandler(this.state.situation);
   };
 
   render() {
@@ -22,7 +32,9 @@ class Form extends React.Component {
       <div className="testbox">
         <form action="/">
           <p id="h1">Emergency Information From</p>
-          <p id="h4">Current Locaiton</p>
+          <p id="h4">
+            Current Locaiton<span>*</span>
+          </p>
           <input
             placeholder="Enter your address"
             type="text"
@@ -45,22 +57,46 @@ class Form extends React.Component {
               <tr>
                 <td className="first-col">Gender</td>
                 <td>
-                  <input name="point#2" type="radio" />
+                  <input
+                    name="point#2"
+                    value="female"
+                    type="radio"
+                    onClickCapture={this.setGender}
+                  />
                 </td>
                 <td>
-                  <input name="point#2" value="none" type="radio" />
+                  <input
+                    name="point#2"
+                    value="male"
+                    type="radio"
+                    onClickCapture={this.setGender}
+                  />
                 </td>
                 <td>
-                  <input name="point#2" value="none" type="radio" />
+                  <input
+                    name="point#2"
+                    value="other"
+                    type="radio"
+                    onClickCapture={this.setGender}
+                  />
                 </td>
                 <td>
-                  <input name="point#2" value="none" type="radio" />
+                  <input
+                    name="point#2"
+                    value="prefer not to disclose"
+                    type="radio"
+                    onClickCapture={this.setGender}
+                  />
                 </td>
               </tr>
             </tbody>
           </table>
           <p id="h4">Please describe the emergency situation:</p>
-          <textarea rows="5"></textarea>
+          <textarea
+            rows="5"
+            value={this.state.situation}
+            onChange={(e) => this.setState({ situation: e.target.value })}
+          ></textarea>
           <div className="btn-block">
             <button onClick={this.submitHandler}>Submit</button>
           </div>
