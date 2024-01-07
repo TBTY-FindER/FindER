@@ -65,7 +65,7 @@ class Form extends React.Component {
             value={this.state.age}
             onChange={(e) => this.setState({ age: e.target.value })}
           />
-          <p id="h4">What is the individual's gender?</p>
+          <p id="h4">Select the Individual's Gender</p>
           <table>
             <tbody>
               <tr>
