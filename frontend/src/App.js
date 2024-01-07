@@ -131,6 +131,7 @@ function App() {
               situation={situation}
               age={age}
               response={response}
+              setAdvice={setAdvice}
             />
           )}
           ;

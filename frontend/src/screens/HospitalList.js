@@ -10,7 +10,8 @@ import { geocode } from "../components/geocode";
 import ApiClient from "../components/ApiClient";
 import { Person } from "../classes/Person";
 
-function SecondPage({ address, gender, age, situation, response }) {
+function SecondPage({ address, gender, age, situation, response, setAdvice }) {
+  console.log("Second page", address, gender, age, situation);
   const [hospitals, setHospitals] = useState([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [selectedHospital, setSelectedHospital] = useState(null);
@@ -47,6 +48,8 @@ function SecondPage({ address, gender, age, situation, response }) {
       new Person(formData.age, formData.gender, formData.situation, latlng)
     );
     setRecommendResp(hospitals);
+    console.log("Resubmit advice: ", hospitals[0]);
+    setAdvice(hospitals[0]);
     setLoading(false);
   };
 
@@ -95,9 +98,9 @@ function SecondPage({ address, gender, age, situation, response }) {
       />
       <Sidebar
         isVisible={sidebarVisible}
-        address={address}
-        gender={gender}
-        age={age}
+        initialAddress={address}
+        initialGender={gender}
+        initialAge={age}
         situation={situation}
         onResubmit={handleResubmit}
         loading={loading}
