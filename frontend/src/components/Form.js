@@ -10,9 +10,9 @@ class Form extends React.Component {
       address: props.address,
       submitHandler: props.submitHandler,
       ageHandler: props.ageHandler,
-      situation: "",
-      gender: "",
-      age: "",
+      situation: props.situation,
+      gender: props.gender,
+      age: props.age,
       submitted: false,
     };
   }

@@ -9,7 +9,6 @@ const voices = [introVoice, ageVoice, genderVoice, situationVoice];
 const VoiceAnimation = ({ showForm, updateSpeech }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [voiceIndex, setVoiceIndex] = useState(0);
-  const [speechInput, setSpeechInput] = useState([]); // user's voice input
   const [buttonAppear, setButtonAppear] = useState(false);
   const audioRef = React.useRef(null); // Reference to the audio object
 
