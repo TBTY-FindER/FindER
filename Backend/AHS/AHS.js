@@ -140,8 +140,6 @@ class AHS {
         return Hospitals
     }
 }
-<<<<<<< HEAD
-=======
 
 async function test() {
   const url =
@@ -176,5 +174,4 @@ async function test() {
   catch (error) {
     console.error(error);}
 }
->>>>>>> 244f398 (Integrate GPT)
 module.exports = AHS
