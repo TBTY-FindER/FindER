@@ -17,18 +17,6 @@ const Home = ({ addressHandler, genderHandler, situationHandler }) => {
     setPermissionPage(false);
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setAddress(`{
-        lat: ${position.coords.latitude},
-        long: ${position.coords.longitude},
-      }`);
-      });
-      setLoading(false);
-    }, 5000);
-  }, []);
-
   async function micPermission() {
     await navigator.permissions
       .query({ name: "microphone" })
@@ -40,19 +28,34 @@ const Home = ({ addressHandler, genderHandler, situationHandler }) => {
   }
 
   async function geoPermission() {
-    await navigator.permissions
-      .query({ name: "geolocation" })
-      .then(function (permissionStatus) {
-        if (permissionStatus.state === "granted") {
-          setLocationPermission(false);
-          navigator.geolocation.getCurrentPosition(function (position) {
-            setAddress(`{
-              lat: ${position.coords.latitude},
-              long: ${position.coords.longitude},
-            }`);
-          });
-        }
+    try {
+      const permissionStatus = await navigator.permissions.query({
+        name: "geolocation",
       });
+
+      if (permissionStatus.state === "granted") {
+        // Using a Promise to handle getCurrentPosition since it's not natively async
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        // Set address and call addressHandler after getting position
+        const currentAddress = `lat: ${position.coords.latitude}, long: ${position.coords.longitude}`;
+        setAddress(currentAddress);
+        setLocationPermission(false);
+        setLoading(false);
+      } else {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error getting geolocation permission:", error);
+      // Handle error (e.g., user denied geolocation permission)
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
   }
 
   // check if user has given permission to use microphone and location

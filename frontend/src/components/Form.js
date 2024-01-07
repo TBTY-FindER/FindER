@@ -10,8 +10,6 @@ class Form extends React.Component {
       address: props.address,
       situation: "",
     };
-
-    console.log(this.state);
   }
 
   submitHandler = (e) => {
