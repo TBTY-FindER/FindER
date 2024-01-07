@@ -8,7 +8,7 @@ personalAssistant = async (conversationHistory) => {
     });
 
     const directive =
-      "Please provide clear and direct assistant without assuming or adding any details not provided by the user. Do not output what the patient would have said. Don't be apologetic, but be more clear and concise. Do not say you understand.";
+      "Please provide clear and direct assistance without assuming or adding any details not provided by the user. Do not output what the patient would have said. Don't be apologetic, but be more clear and concise. Do not say you understand.";
 
     conversationHistory.push({ role: "system", content: directive });
 
