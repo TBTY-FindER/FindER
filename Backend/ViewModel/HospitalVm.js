@@ -9,7 +9,7 @@ class HospitalVm {
         this.phone = phone;
         this.address = address;
         this.website = website;
-        this.availability = availability;
+        this.availability = availability;``
         this.age = age;
         this.services = services;
     }

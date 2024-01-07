@@ -1,13 +1,17 @@
 const Constants = require("../constants");
+const HospitalService = require("./HospitalService");
 
 const CronService = {
-    UpdateParams: async function() {
-        console.log("Ran the cron")
+    ExecCron: async function() {
+        await this.UpdateParams();
+        setInterval(this.UpdateParams, Constants.updateWaitTimesInterval);
     },
 
-    ExecCron: function() {
-        setInterval(this.UpdateParams, Constants.updateWaitTimesInterval);
-    }
+    UpdateParams: async function() {
+        await HospitalService.updateHospitalsCache();
+    },
+
+    // UpdateWaitTimes
 };
 
 module.exports = CronService;

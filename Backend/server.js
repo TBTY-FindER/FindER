@@ -9,7 +9,14 @@ const port = 3000
 
 app.use('/api', routes); // Mount the routes on /api
 
-app.listen(port, () => {
-  console.log(`FindER server listening on port ${port}`)
-  CronService.ExecCron();
-})
+function startServer() {
+  CronService.ExecCron()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Done Init CRON`)
+    })
+  })
+}
+
+startServer();
+
