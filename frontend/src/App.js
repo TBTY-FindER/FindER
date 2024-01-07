@@ -38,13 +38,13 @@ function App() {
   useEffect(() => {
     if (readyToSubmit) {
       const person = new Person(age, gender, situation, geolocation);
-
+      console.log(address);
       // perform api call here!
 
       setSubmit(true);
       setReadyToSubmit(false);
     }
-  }, [readyToSubmit, age, gender, situation, geolocation]);
+  }, [readyToSubmit, age, gender, situation, geolocation, address]);
 
   const submitHandler = () => {
     setReadyToSubmit(true);

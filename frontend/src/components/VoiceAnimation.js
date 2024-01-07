@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import introVoice from "../sounds/Intro.mp3";
 import situationVoice from "../sounds/Situation.mp3";
 import GenderAgeVoice from "../sounds/GenderAge.mp3";
+import permissionVoice from "../sounds/Permission.mp3";
 
-const voices = [introVoice, GenderAgeVoice, situationVoice];
+const voices = [permissionVoice, permissionVoice, permissionVoice];
 
 const VoiceAnimation = ({ showForm }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,8 +23,9 @@ const VoiceAnimation = ({ showForm }) => {
       setIsPlaying(false);
       // take user's voice input
       if (voiceIndex === 2) {
-        await handleVoiceInput();
-        showForm();
+        handleVoiceInput().then(() => {
+          showForm();
+        });
       } else if (voiceIndex !== 0) {
         handleVoiceInput();
       } else {
@@ -49,7 +51,7 @@ const VoiceAnimation = ({ showForm }) => {
   };
 
   // function that take user's voice input and stop when user stop talking
-  const handleVoiceInput = async () => {
+  const handleVoiceInput = () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
