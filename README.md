@@ -18,6 +18,9 @@ The algorithm operates as follows:
 ## Technologies Used
 
 - **Web Scraping (BeautifukSoup & Selenium)**: To extract real-time data on hospital services, wait times, and operational hours.
+
+![Hospital Data](/Users/taekwan/Desktop/FindER/screenshots/hospital1.png)
+
 - **JavaScript & React**: For building a responsive and interactive user interfact.
 - **Node.js**: To handle server-side operations.
 - **OpenAI GPT-4**: To assess the urgency of medical situations and provide prearrival advice.
