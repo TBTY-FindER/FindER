@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import HospitalList from "../components/HospitalListItem";
 import Sidebar from "../components/Sidebar";
 
-function SecondPage({ address, gender, situation }) {
+function SecondPage({ address, gender, age, situation }) {
   const [hospitals, setHospitals] = useState([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
