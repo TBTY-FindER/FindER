@@ -20,6 +20,8 @@ async function reverseGeocode(lat, lng) {
   }
 }
 
+// example usage
+/*
 (async () => {
   const latitude = 40.714224;
   const longitude = -73.961452;
@@ -30,5 +32,5 @@ async function reverseGeocode(lat, lng) {
     console.error("Error retrieving address:", error);
   }
 })();
-
+*/
 module.exports = { reverseGeocode };

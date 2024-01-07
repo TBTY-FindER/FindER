@@ -92,7 +92,8 @@ checkServices = async (
   gender = "unknown",
   age = "unknown",
   situation = "unknown",
-  hospital_name = "Innisfail Health Centre"
+  //   hospital_name = "Innisfail Health Centre"
+  services
 ) => {
   let services = [];
   try {
