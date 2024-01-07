@@ -15,13 +15,13 @@ const Home = ({
   submitHandler,
   ageHandler,
   geolocationHandler,
+  updateCaption,
 }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
   const [loading, setLoading] = useState(true);
   const [permissionPage, setPermissionPage] = useState(true);
   const [address, setAddress] = useState("");
-  const [inputIndex, setInputIndex] = useState(0);
   const [speechInput, setSpeechInput] = useState(""); // user's voice input
 
   const endPermissionPage = () => {
@@ -106,7 +106,10 @@ const Home = ({
               {locationPermission || permissionDenied ? (
                 <PermissionAlert handleButton={endPermissionPage} />
               ) : (
-                <PermissionGranted handleButton={endPermissionPage} />
+                <PermissionGranted
+                  handleButton={endPermissionPage}
+                  updateCaption={updateCaption}
+                />
               )}
             </>
           )}
@@ -127,6 +130,7 @@ const Home = ({
             <VoiceAnimation
               showForm={handlePermission}
               updateSpeech={updateSpeech}
+              updateCaption={updateCaption}
             />
           )}
         </>

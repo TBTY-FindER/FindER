@@ -5,7 +5,7 @@ import SkipButton from "./SkipButton";
 
 const voices = [introVoice, situationVoice];
 
-const VoiceAnimation = ({ showForm, updateSpeech }) => {
+const VoiceAnimation = ({ showForm, updateSpeech, updateCaption }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [voiceIndex, setVoiceIndex] = useState(0);
   const [buttonAppear, setButtonAppear] = useState(false);
@@ -40,6 +40,9 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
 
   const handleClick = () => {
     // Stop the current audio immediately
+    updateCaption(
+      "Could you breifly describe your current situation and condition? Your details will help us guide you to the right care. "
+    );
     audioRef.current.pause();
     audioRef.current.currentTime = 0; // Reset the audio playback to the start
     setButtonAppear(false);
@@ -60,6 +63,9 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
       recognition.stop();
       if (voiceIndex === 1) {
         showForm();
+        updateCaption(
+          "Please review the details you just shared to ensure accuracy. Once everything is correct, go ahead and press submit."
+        );
       } else {
         setVoiceIndex((prevIndex) => prevIndex + 1);
       }
@@ -103,7 +109,7 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
         <></>
       )}
       <div className="skip-holder">
-        <SkipButton clickHandler={showForm} />
+        <SkipButton clickHandler={showForm} updateCaption={updateCaption} />
       </div>
     </>
   );

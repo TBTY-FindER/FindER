@@ -48,7 +48,7 @@ class Form extends React.Component {
         <form action="/" className={this.state.submitted ? "form-submit" : ""}>
           <p id="h1">Emergency Information Form</p>
           <p id="h4">
-            Current Locaiton<span>*</span>
+            Current Location<span>*</span>
           </p>
           <input
             placeholder="Enter your address"
@@ -58,18 +58,14 @@ class Form extends React.Component {
             onChange={(e) => this.setState({ address: e.target.value })}
           />
 
-          <p id="h4">
-            Enter your Date of Birth<span>*</span>
-          </p>
+          <p id="h4">Enter the Individual's Date of Birth</p>
           <input
             type="date"
             className="input-age"
             value={this.state.age}
             onChange={(e) => this.setState({ age: e.target.value })}
           />
-          <p id="h4">
-            What is the individual's gender assigned birth?<span>*</span>
-          </p>
+          <p id="h4">Select the Individual's Gender</p>
           <table>
             <tbody>
               <tr>
@@ -77,7 +73,7 @@ class Form extends React.Component {
                 <th className="gender-options">Female</th>
                 <th className="gender-options">Male</th>
                 <th className="gender-options">Other</th>
-                <th className="gender-options">Prefer not to disclose</th>
+                <th className="gender-options">Unknown</th>
               </tr>
               <tr>
                 <td className="first-col">Gender</td>

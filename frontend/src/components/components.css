@@ -566,3 +566,76 @@ textarea {
 .start-button:not(:active) {
   transition: 200ms;
 }
+
+.card-caption {
+  height: 150px;
+  width: 300px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 16px;
+  box-shadow: 0 0 20px 8px #d0d0d0;
+  overflow: hidden;
+}
+
+.card-caption-assistant {
+  animation: scale 1.5s infinite;
+}
+
+/* animation that makes it big and small */
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*Image*/
+.card-image-caption {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  background: linear-gradient(to top, #f7f7f7, #d2494b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Description */
+.card-description-caption {
+  display: flex;
+  position: absolute;
+  gap: 0.5em;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  color: #212121;
+  height: 70%;
+  bottom: 0;
+  border-radius: 16px;
+  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 1rem;
+  width: 270px;
+}
+
+/*Text*/
+.text-title-caption {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.text-body-caption {
+  font-size: 1rem;
+  line-height: 130%;
+}
+
+/* Hover states */
+.card-caption:hover .card-description-caption {
+  transform: translateY(100%);
+}

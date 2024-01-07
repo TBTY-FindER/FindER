@@ -15,6 +15,8 @@ const loadingStyle = {
   height: "100%",
 }
 
+import Caption from "./components/Caption";
+import ReadyVoice from "./sounds/Ready.mp3";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -26,6 +28,8 @@ function App() {
   const [response, setResponse] = useState([{}]);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [transitionPage, setTransitionPage] = useState(false);
+  const [caption, setCaption] = useState(".....");
+  const [responseUpdated, setResponseUpdated] = useState(false);
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -46,7 +50,6 @@ function App() {
   const geolocationHandler = (geolocation) => {
     setGeolocation(geolocation);
   };
-
 
   const submitHandler = async () => {
     const holdOnAudio = new Audio(HoldOnVoice);
@@ -79,6 +82,9 @@ function App() {
 
   return (
     <div className="container">
+      <div className="caption">
+        <Caption caption={caption} />
+      </div>
       {transitionPage && <div className="home">
         <Loader />
       </div>}
@@ -92,6 +98,7 @@ function App() {
           submitHandler={submitHandler}
           ageHandler={ageHandler}
           geolocationHandler={geolocationHandler}
+          updateCaption={updateCaption}
         />
       ) : (
         <SecondPage
