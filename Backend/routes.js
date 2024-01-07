@@ -10,7 +10,7 @@ router.get('/hospitals', (req, res) => {
 
 router.get('/hospitals/recommend', async (req, res) => {
     console.log("hospitals/recommend");
-    return res.json({ body: await HospitalController.getRecommendation() });
+    return res.json({ body: await HospitalController.getRecommendation(req) });
 });
 
 // Define your routes
