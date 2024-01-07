@@ -1,6 +1,6 @@
 require("dotenv").config();
 const AHS = require("../AHS/AHS")
-const {Client, LatLng} = require("@googlemaps/google-maps-services-js");
+const {Client} = require("@googlemaps/google-maps-services-js");
 const GOOGLE_MAPS_API = process.env.GOOGLE_MAPS_API_KEY
 const client = new Client({});
 const ahs = new AHS()
@@ -48,12 +48,4 @@ async function DistanceToEverything(origin){
         }
     }
 }
-testorigin = {
-    lat: 53.5281882,
-    long: -113.5301719
-}
-DistanceToEverything(testorigin).then((result) => {
-    console.log(result)
-}).catch((err) => {
-    console.log(err)
-});
+module.exports = { DistanceToEverything };
