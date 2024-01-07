@@ -6,11 +6,12 @@ import VoiceAnimation from "../components/VoiceAnimation";
 import Loader from "../components/Loader";
 import Form from "../components/Form";
 
-const Home = ({ addressHandler, genderHandler, locationHandler }) => {
+const Home = ({ addressHandler, genderHandler, situationHandler }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
   const [loading, setLoading] = useState(true);
   const [permissionPage, setPermissionPage] = useState(true);
+  const [address, setAddress] = useState("");
 
   const endPermissionPage = () => {
     setPermissionPage(false);
@@ -18,8 +19,14 @@ const Home = ({ addressHandler, genderHandler, locationHandler }) => {
 
   useEffect(() => {
     setTimeout(() => {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setAddress(`{
+        lat: ${position.coords.latitude},
+        long: ${position.coords.longitude},
+      }`);
+      });
       setLoading(false);
-    }, 2000);
+    }, 5000);
   }, []);
 
   async function micPermission() {
@@ -39,10 +46,10 @@ const Home = ({ addressHandler, genderHandler, locationHandler }) => {
         if (permissionStatus.state === "granted") {
           setLocationPermission(false);
           navigator.geolocation.getCurrentPosition(function (position) {
-            locationHandler({
-              lat: position.coords.latitude,
-              long: position.coords.longitude,
-            });
+            setAddress(`{
+              lat: ${position.coords.latitude},
+              long: ${position.coords.longitude},
+            }`);
           });
         }
       });
@@ -74,7 +81,12 @@ const Home = ({ addressHandler, genderHandler, locationHandler }) => {
       ) : (
         <>
           {locationPermission || permissionDenied ? (
-            <Form />
+            <Form
+              addressHandler={addressHandler}
+              genderHandler={genderHandler}
+              situationHandler={situationHandler}
+              address={address}
+            />
           ) : (
             <VoiceAnimation />
           )}
