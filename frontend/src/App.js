@@ -57,7 +57,6 @@ function App() {
     if (typeof address === "string") {
       // switch address to geolocation
       let result = await geocode(address);
-      setAddress(result);
       console.log(result);
       const person = new Person(age, gender, situation, result);
       console.log(person);
