@@ -1,11 +1,6 @@
-const dotenv = require("dotenv");
-dotenv.config();
-const AHS = require("../AHS/AHS");
-const ahs = new AHS();
-
-const GOOGLE_MAPS_API = process.env.GOOGLE_MAPS_API_KEY;
-
 async function geocodeAddress(address) {
+  const AHS = require("../AHS/AHS");
+  const ahs = new AHS();
   const dotenv = require("dotenv");
   dotenv.config();
 
@@ -30,14 +25,14 @@ async function geocodeAddress(address) {
   }
 }
 
-(async () => {
-  const address = "University of Alberta, Edmonton, Canada";
-  try {
-    const { lat, lng } = await geocodeAddress(address);
-    console.log(lat, lng);
-  } catch (error) {
-    console.error("Error retrieving coordinates:", error);
-  }
-})();
+// (async () => {
+//   const address = "University of Alberta, Edmonton, Canada";
+//   try {
+//     const { lat, lng } = await geocodeAddress(address);
+//     console.log(lat, lng);
+//   } catch (error) {
+//     console.error("Error retrieving coordinates:", error);
+//   }
+// })();
 
 module.exports = { geocodeAddress };
