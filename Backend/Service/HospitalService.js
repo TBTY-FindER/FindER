@@ -48,7 +48,7 @@ const HospitalService = {
         if (this.isUrgent(respUrgency)) {
             console.log("Urgent");
             let hosps = await this.getRecommendationForUrgent(recommendationReq)
-            return [firstResponse,hosps,respUrgency]
+            return [firstResponse,hosps,this.isUrgent(respUrgency)]
         } else {
             console.log("Not Urgent");
             let hosps = await this.getRecommendationForNonUrgent(recommendationReq)

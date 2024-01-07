@@ -93,6 +93,7 @@ function SecondPage({ address, gender, age, situation, response }) {
           open={isModalOpen}
           hospitalDetails={selectedHospital}
           onClose={handleCloseModal}
+          urgent={response[2]}
         />
       )}
     </div>
