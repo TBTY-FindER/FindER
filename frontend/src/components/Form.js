@@ -8,6 +8,7 @@ class Form extends React.Component {
       situationHandler: props.situationHandler,
       addressHandler: props.addressHandler,
       address: props.address,
+      submitHandler: props.submitHandler,
       situation: "",
       gender: "",
     };
@@ -25,6 +26,7 @@ class Form extends React.Component {
     this.state.addressHandler(this.state.address);
     this.state.genderHandler(this.state.gender);
     this.state.situationHandler(this.state.situation);
+    this.state.submitHandler();
   };
 
   render() {

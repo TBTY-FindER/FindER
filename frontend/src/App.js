@@ -21,6 +21,10 @@ function App() {
     setSituation(situation);
   };
 
+  const submitHandler = () => {
+    setSubmit(true);
+  };
+
   return (
     <div className="container">
       {!submit ? (
@@ -28,6 +32,7 @@ function App() {
           addressHandler={addressHandler}
           genderHandler={genderHandler}
           situationHandler={situationHandler}
+          submitHandler={submitHandler}
         />
       ) : (
         <SecondPage address={address} gender={gender} situation={situation} />

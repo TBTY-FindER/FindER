@@ -7,7 +7,12 @@ import Form from "../components/Form";
 import "./screen.css";
 import { reverseGeocode } from "../components/reverse_geocode.js";
 
-const Home = ({ addressHandler, genderHandler, situationHandler }) => {
+const Home = ({
+  addressHandler,
+  genderHandler,
+  situationHandler,
+  submitHandler,
+}) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -93,6 +98,7 @@ const Home = ({ addressHandler, genderHandler, situationHandler }) => {
               genderHandler={genderHandler}
               situationHandler={situationHandler}
               address={address}
+              submitHandler={submitHandler}
             />
           ) : (
             <VoiceAnimation />
