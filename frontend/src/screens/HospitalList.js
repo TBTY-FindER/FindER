@@ -39,13 +39,22 @@ function SecondPage() {
 
   return (
     <div style={{
-      width: '100vw',
+      width: '100%',
       height: '100vh',
-      overflow: 'auto',
-      padding: '20px',
-      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)', // Example gradient
+      overflowY: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      padding: '40px 20px',
+      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)',
     }}>
-      <Typography variant="h2" component="h1" style={{ textAlign: 'center', margin: '20px 0' }}>
+      <Typography variant="h2" component="h1" style={{
+        textAlign: 'center',
+        margin: '40px 0', // Increased top and bottom margin
+        width: '100%',
+        // Removed the maxWidth restriction to allow the title to be as wide as the content
+      }}>
         Nearby Hospitals
       </Typography>
       <HospitalList hospitals={hospitals} />
