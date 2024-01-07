@@ -38,6 +38,7 @@ function App() {
           genderHandler={genderHandler}
           situationHandler={situationHandler}
           submitHandler={submitHandler}
+          ageHandler={ageHandler}
         />
       ) : (
         <SecondPage

@@ -99,9 +99,9 @@ const Home = ({
               addressHandler={addressHandler}
               genderHandler={genderHandler}
               situationHandler={situationHandler}
-              ageHandler={ageHandler}
               address={address}
               submitHandler={submitHandler}
+              ageHandler={ageHandler}
             />
           ) : (
             <VoiceAnimation />
