@@ -33,9 +33,10 @@ function App() {
     setGeolocation(geolocation);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     const person = new Person(age, gender, situation, geolocation);
-    ApiClient.GetRecommendation(person);
+    console.log("Submit")
+    await ApiClient.GetRecommendation(person);
     // person class
     // you will post person to backend
     setSubmit(true);

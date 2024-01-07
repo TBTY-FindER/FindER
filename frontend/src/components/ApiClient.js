@@ -3,16 +3,20 @@ const serverUrl = "http://localhost:3000";
 
 const ApiClient = {
     GetRecommendation: async function(person) {
-        let reqBody = JSON.stringify({
+        let reqBody = {
             "lat": person.address.lat,
             "lng": person.address.lng,
             "age": person.age,
             "situation": person.situation,
             "gender": person.gender,
-          });
+          };
+
           var requestOptions = {
-            method: 'GET',
-            headers: {"Content-Type": "application/json"},
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(reqBody),
           };
           let resp = await fetch(`${serverUrl}/api/hospitals/recommend`, requestOptions)
@@ -21,8 +25,7 @@ const ApiClient = {
             return [];
           }
           
-          const data = await response.json();
-          console.log(JSON.stringify(data));
+          const data = await resp.json();
           return data.body;
     }
 };
