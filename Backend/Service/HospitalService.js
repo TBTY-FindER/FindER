@@ -47,32 +47,38 @@ const HospitalService = {
         let firstResponse = await GPT.checkFirstResponse(recommendationReq.gender,recommendationReq.age,recommendationReq.situation);
         if (this.isUrgent(respUrgency)) {
             console.log("Urgent");
-            let hosps = this.getRecommendationForUrgent(recommendationReq)
-            return [firstResponse,hosps]
+            let hosps = await this.getRecommendationForUrgent(recommendationReq)
+            return [firstResponse,hosps,this.isUrgent(respUrgency)]
         } else {
             console.log("Not Urgent");
             let hosps = await this.getRecommendationForNonUrgent(recommendationReq)
-            return [firstResponse,hosps]
+            return [firstResponse,hosps,this.isUrgent(respUrgency)]
         }
     },
 
     isUrgent: function(urgentResp) { return urgentResp == "urgent"; },
 
     getRecommendationForUrgent: async function(recommendationReq) {
+        // console.log(recommendationReq)
         let matrix = await DistanceFinder.DistanceToEverything({lat: recommendationReq.lat, long: recommendationReq.lng})
         let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
         hospitals.sort((a, b) => (a.distance.value) - (b.distance.value));
+        // console.log(hospitals)
+        console.log(hospitals.length)
         return hospitals;
     },
 
     getRecommendationForNonUrgent: async function(recommendationReq){
-        console.log(recommendationReq)
         let matrix = await DistanceFinder.DistanceToEverything({lat: recommendationReq.lat, long: recommendationReq.lng})
         let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
         hospitals.sort((a, b) => ((a.totalTime) - (b.totalTime) || ((a.distance.value) - (b.distance.value))));
+        
         return hospitals
     }
 };
 
 
 module.exports = HospitalService;
+
+
+{[{},{}]}

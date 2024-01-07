@@ -13,12 +13,12 @@ function SecondPage({ address, gender, age, situation, response }) {
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/hospitals")
-      .then((response) => response.json())
-      .then((data) => setHospitals(data.body))
-      .catch((error) => console.error("Error fetching hospitals:", error));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/api/hospitals")
+  //     .then((response) => response.json())
+  //     .then((data) => setHospitals(data.body))
+  //     .catch((error) => console.error("Error fetching hospitals:", error));
+  // }, []);
 
   const toggleIconStyle = {
     position: "fixed",
@@ -77,7 +77,7 @@ function SecondPage({ address, gender, age, situation, response }) {
         {sidebarVisible ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
       </IconButton>
       <HospitalList
-        hospitals={hospitals}
+        hospitals={response[1]}
         onHospitalClick={handleHospitalClick}
       />
       <Sidebar
@@ -93,6 +93,7 @@ function SecondPage({ address, gender, age, situation, response }) {
           open={isModalOpen}
           hospitalDetails={selectedHospital}
           onClose={handleCloseModal}
+          urgent={response[2]}
         />
       )}
     </div>
