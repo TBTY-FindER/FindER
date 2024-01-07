@@ -474,3 +474,21 @@ textarea {
 .gender-options {
   font-size: 16px;
 }
+
+/* In your CSS file */
+.listContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.listContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.listContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.listContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

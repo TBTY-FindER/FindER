@@ -36,29 +36,22 @@ function SecondPage({ address, gender, situation }) {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        overflowY: "auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        padding: "40px 20px",
-        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
-      }}
-    >
-      <Typography
-        variant="h2"
-        component="h1"
-        style={{
-          textAlign: "center",
-          margin: "40px 0", // Increased top and bottom margin
-          width: "100%",
-          // Removed the maxWidth restriction to allow the title to be as wide as the content
-        }}
-      >
+    <div style={{
+      width: '100%',
+      height: '100vh', // Fixed height of the whole page
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      background: 'linear-gradient(to right, #e3f2fd, #bbdefb)',
+    }}>
+      <Typography variant="h2" component="h1" style={{
+        textAlign: 'center',
+        margin: '40px 0',
+        width: '100%',
+        maxWidth: '800px',
+        fontSize: '2.5rem', // Smaller font size for the header
+      }}>
         Nearby Hospitals
       </Typography>
       <HospitalList hospitals={hospitals} />

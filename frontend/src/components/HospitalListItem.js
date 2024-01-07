@@ -11,7 +11,7 @@ function HospitalList({ hospitals }) {
     width: '100%',
     maxWidth: '800px',
     backgroundColor: '#fff',
-    margin: '5px 0', // Reduced space between cards
+    margin: '10px auto', // Reduced space between cards
     transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out', // Smooth transition for hover effect
   };
 
@@ -21,17 +21,18 @@ function HospitalList({ hospitals }) {
     boxShadow: '0 4px 8px rgba(0,0,0,0.3)', // Increase the shadow for a glow effect
   };
 
+  const listContainerStyle = {
+    overflowY: 'scroll', // Enable vertical scrolling
+    maxHeight: 'calc(100vh - 160px)', // Adjust the height as needed to fit your header/footer
+    width: '100%',
+    maxWidth: '900px',
+    paddingTop: '10px', // Use the passed paddingTop value
+    paddingBottom: '20px',
+    boxSizing: 'border-box',
+  };
+
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '20px',
-      gap: '15px', // Adjusted gap
-      width: '100%',
-      maxWidth: '800px',
-      margin: '0 auto',
-    }}>
+    <div className="listContainer" style={listContainerStyle}> {/* This div is the scrollable list container */}
       {hospitals.map((hospital, index) => (
         <Card 
           key={index} 
@@ -46,10 +47,10 @@ function HospitalList({ hospitals }) {
           }}
         >
           <CardContent>
-            <Typography variant="h6" component="h2" style={{ fontSize: '1.3rem', color: '#333' }}> {/* Increased font size */}
+            <Typography variant="h6" component="h2" style={{ fontSize: '1.3rem', color: '#333' }}>
               {hospital.name}
             </Typography>
-            <Typography variant="body1" style={{ fontSize: '1.1rem', color: '#555' }}> {/* Subtle colors and increased font size */}
+            <Typography variant="body1" style={{ fontSize: '1.1rem', color: '#555' }}>
               Distance: {hospital.distance} km - Wait Time: {hospital.time} mins
             </Typography>
           </CardContent>
