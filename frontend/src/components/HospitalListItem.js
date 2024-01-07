@@ -2,8 +2,9 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import Loader from "./Loader";
 
-function HospitalList({ hospitals, onHospitalClick }) {
+function HospitalList({ hospitals, onHospitalClick, loading }) {
   // Styles for the card, including transition properties for smooth effects
   const cardStyle = {
     borderRadius: "15px",
@@ -29,13 +30,21 @@ function HospitalList({ hospitals, onHospitalClick }) {
     paddingTop: "10px", // Use the passed paddingTop value
     paddingBottom: "20px",
     boxSizing: "border-box",
+    height: "100%"
   };
+
+  const loadingStyle = {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100%",
+  }
 
   return (
     <div className="listContainer" style={listContainerStyle}>
       {" "}
       {/* This div is the scrollable list container */}
-      {hospitals.map((hospital, index) => (
+      {!loading && hospitals.map((hospital, index) => (
         <Card
           key={index}
           style={cardStyle}
@@ -66,6 +75,10 @@ function HospitalList({ hospitals, onHospitalClick }) {
           </CardContent>
         </Card>
       ))}
+
+      {loading && <div style={loadingStyle}>
+        <Loader />
+      </div> }
     </div>
   );
 }

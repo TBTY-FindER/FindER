@@ -6,6 +6,8 @@ async function geocode(address) {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${GOOGLE_MAPS_API_KEY}`;
 
   try {
+    console.log(address);
+    if (!address) { throw new Error("Empty address"); }
     const response = await fetch(url);
     const data = await response.json();
 
@@ -19,8 +21,11 @@ async function geocode(address) {
       throw new Error("Geocoding API error: " + data);
     }
   } catch (error) {
-    console.error("Error:", error);
-    throw error;
+    console.error("Error: coulnd't get lat lng", error);
+    return {
+      lat: 53.523220,
+      lng: -113.526321,
+    };
   }
 }
 

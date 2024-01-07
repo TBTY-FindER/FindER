@@ -4,6 +4,7 @@ const HospitalLocal = require("../Model/HospitalLocal");
 const HospitalVm = require("../ViewModel/HospitalVm");
 const DistanceFinder = require("../Maps/DistanceFinder")
 const GPT = require("../GPT/GPT");
+const Constants = require("../constants");
 let Ahs = new AHS()
 
 const HospitalService = {
@@ -30,11 +31,12 @@ const HospitalService = {
     },
 
     mapHospitalLocal(hospitalCache, distanceDurationObject) {
+        if (!hospitalCache || !distanceDurationObject) { console.log("ERR: Invalid atts mapHospitalLocal"); return []};
         return hospitalCache.map(hospLoc => {
             let hospitalVm = new HospitalVm(hospLoc.name, hospLoc.waitTime, hospLoc.note, hospLoc.type, hospLoc.city, hospLoc.phone, hospLoc.address, hospLoc.website, hospLoc.availability, 
                 hospLoc.age, hospLoc.services);
-            hospitalVm.setDistance(distanceDurationObject[hospLoc.name].distance)
-            hospitalVm.setDuration(distanceDurationObject[hospLoc.name].duration)
+            hospitalVm.setDistance(distanceDurationObject?.[hospLoc.name].distance)
+            hospitalVm.setDuration(distanceDurationObject?.[hospLoc.name].duration)
             let waitTimeInSeconds = (hospLoc.waitTime.hours*3600) + (hospLoc.waitTime.minutes*60) 
             let total = this.getEstimateSeconds(waitTimeInSeconds,distanceDurationObject[hospLoc.name].duration.value)
             hospitalVm.setTotalTime(total)
@@ -44,32 +46,48 @@ const HospitalService = {
 
     getRecommendation: async function(recommendationReq) {
         let respUrgency = await GPT.checkUrgency(recommendationReq.gender, recommendationReq.age, recommendationReq.situation);
-        let firstResponse = await GPT.checkFirstResponse(recommendationReq.gender,recommendationReq.age,recommendationReq.situation);
+        let firstResponse = GPT.checkFirstResponse(recommendationReq.gender,recommendationReq.age,recommendationReq.situation);
+        // console.log(`Urgency: ${respUrgency}; initResp: ${firstResponse}`)
+        let hosps = [];
         if (this.isUrgent(respUrgency)) {
             console.log("Urgent");
-            let hosps = await this.getRecommendationForUrgent(recommendationReq)
-            return [firstResponse,hosps,this.isUrgent(respUrgency)]
+            hosps = await this.getRecommendationForUrgent(recommendationReq)
+            
         } else {
             console.log("Not Urgent");
-            let hosps = await this.getRecommendationForNonUrgent(recommendationReq)
-            return [firstResponse,hosps,this.isUrgent(respUrgency)]
+            hosps = await this.getRecommendationForNonUrgent(recommendationReq)
         }
+        hosps = this.filterHospitals(hosps, this.isOver18(recommendationReq.age));
+        firstResponse = await firstResponse;
+        return [firstResponse, hosps, this.isUrgent(respUrgency)]
     },
 
     isUrgent: function(urgentResp) { return urgentResp == "urgent"; },
+
+    isHospitalForAdults: function(hospital) { return hospital.age != Constants.under18; },
+
+    isHospitalForKids: function(hospital) { return hospital.age == Constants.under18 || hospital.age == Constants.allAges; },
+
+    isOver18: function(age) { return age >= 18; },
+
+    filterHospitals: function(hospitals, over18) {
+        return hospitals.filter(hosp => {
+            if (over18) { return this.isHospitalForAdults(hosp); }
+            else { return this.isHospitalForKids(hosp); }
+        })
+    },
 
     getRecommendationForUrgent: async function(recommendationReq) {
         // console.log(recommendationReq)
         let matrix = await DistanceFinder.DistanceToEverything({lat: recommendationReq.lat, long: recommendationReq.lng})
         let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
         hospitals.sort((a, b) => (a.distance.value) - (b.distance.value));
-        // console.log(hospitals)
-        console.log(hospitals.length)
         return hospitals;
     },
 
     getRecommendationForNonUrgent: async function(recommendationReq){
         let matrix = await DistanceFinder.DistanceToEverything({lat: recommendationReq.lat, long: recommendationReq.lng})
+        if (!matrix) { console.log("ERR: MATRIX NONE getRecommendationForNonUrgent"); return []; }
         let hospitals = this.mapHospitalLocal(this.hospitalsCache, matrix)
         hospitals.sort((a, b) => ((a.totalTime) - (b.totalTime) || ((a.distance.value) - (b.distance.value))));
         

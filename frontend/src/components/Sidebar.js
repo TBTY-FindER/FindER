@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import Form from './Form'; // Import the Form component
 
-function SidebarContent({ initialAddress, initialGender, initialAge, initialSituation, onResubmit }) {
+function SidebarContent({ initialAddress, initialGender, initialAge, initialSituation, onResubmit, loading }) {
     const [address, setAddress] = useState(initialAddress);
     const [gender, setGender] = useState(initialGender);
     const [age, setAge] = useState(initialAge);
@@ -95,7 +95,7 @@ function SidebarContent({ initialAddress, initialGender, initialAge, initialSitu
             placeholder="Describe the situation"
           ></textarea>
         </div>
-        <button onClick={handleSubmit} style={{ padding: '10px 20px', marginTop: '20px' }}>
+        <button onClick={handleSubmit} style={{ padding: '10px 20px', marginTop: '20px' }} disabled={loading} >
             Resubmit
         </button>
       </div>
@@ -103,7 +103,7 @@ function SidebarContent({ initialAddress, initialGender, initialAge, initialSitu
 }  
   
 
-function Sidebar({ isVisible, initialAddress, initialGender, initialAge, initialSituation, onResubmit }) {
+function Sidebar({ isVisible, initialAddress, initialGender, initialAge, initialSituation, onResubmit, loading }) {
     const sidebarStyle = {
         height: '100vh',
         width: isVisible ? '300px' : '0', // Control width based on visibility
@@ -125,6 +125,7 @@ function Sidebar({ isVisible, initialAddress, initialGender, initialAge, initial
         initialAge={initialAge}
         initialSituation={initialSituation}
         onResubmit={onResubmit}
+        loading={loading}
       />
     </div>
   );
