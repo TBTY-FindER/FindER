@@ -16,6 +16,7 @@ function SecondPage({ address, gender, age, situation, response }) {
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [recommendResp, setRecommendResp] = useState(response);
+  const [loading, setLoading] = useState(false);
 
   // useEffect(() => {
   //   fetch("http://localhost:3000/api/hospitals")
@@ -40,9 +41,11 @@ function SecondPage({ address, gender, age, situation, response }) {
 
   const handleResubmit = async (formData) => {
     // get location
+    setLoading(true);
     let latlng = await geocode(formData.address);
     let hospitals = await  ApiClient.GetRecommendation(new Person(formData.age, formData.gender, formData.situation, latlng));
     setRecommendResp(hospitals);
+    setLoading(false);
   };
 
   const handleHospitalClick = (hospital) => {
@@ -82,10 +85,12 @@ function SecondPage({ address, gender, age, situation, response }) {
       <IconButton onClick={toggleSidebar} style={toggleIconStyle}>
         {sidebarVisible ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
       </IconButton>
+
       <HospitalList
         hospitals={recommendResp[1]}
         onHospitalClick={handleHospitalClick}
-      />
+        loading={loading}
+        />
       <Sidebar
         isVisible={sidebarVisible}
         address={address}
@@ -93,6 +98,7 @@ function SecondPage({ address, gender, age, situation, response }) {
         age={age}
         situation={situation}
         onResubmit={handleResubmit}
+        loading={loading}
       />
       {selectedHospital && (
         <HospitalDetailsModal
