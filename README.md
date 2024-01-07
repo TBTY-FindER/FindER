@@ -1,1 +1,43 @@
-# FindER
+# FindER: Emergency Room Locator
+
+## Overview
+
+FindER is a dynamic web application designed to optimize emergency room visits by calculating the shortest total time (wait time + travel time) and by examining the distinct services provided by the emergency room of interest. This platform is particularly beneficial in countries like Canada, where publicly funded healthcare systems often face long waiting times. By directing patients to the most efficient option, FindER not only enhances patient care but also reduces the strain on medical professionals and healthcare facilities.
+
+## How It Works
+
+The algorithm operates as follows:
+
+1. **User Location**: Upon user consent, the site collects the user's location.
+2. **Data Collection**: Using web scraping, it gathers real-time wait times from hospitals across Alberta.
+3. **User Input**: Users provide details such as age, gender, and the nature of the emergency.
+4. **OpenAI Integration**: Inputs are fed into the OpenAI GPT-4 model to generate immediate care suggestions and assess the urgency of the situation.
+5. **Google Maps API**: Calculates the travel time to potential hospitals.
+6. **Hospital Ranking and Selection**: Hospitals are ranked based on total required time (travel time + wait time) for non-urgent cases or travel time alone for urgent cases. The app then evaluates whether the hospital's services align with the patient's needs before making a selection.
+
+## Technologies Used
+
+- **Web Scraping (BeautifukSoup & Selenium)**: To extract real-time data on hospital services, wait times, and operational hours.
+- **JavaScript & React**: For building a responsive and interactive user interfact.
+- **Node.js**: To handle server-side operations.
+- **OpenAI GPT-4**: To assess the urgency of medical situations and provide prearrival advice.
+- **Google Maps API**: To calculate travel times to various hospitals.
+- **AWS Speech Recognition**: To enhance accessibility by allowing voice input for emergencies.
+- **Amplify**: To deploy the web application.
+- **Express**: To manage web application requests efficiently.
+
+## Future Directions
+
+While currently a tool for individuals facing medical emergencies, we aim to expand its functionalities to integrate with official healthcare systems like AHS or serve as a resource for medical professionals managing patient flow.
+
+## Team and Roles
+
+- **Dohyun Kim**: Frontend Developer - Focuses on creating a seamless and intuitive user interface.
+- **Krish Lal**: Fullstack Developer - Bridges the gap between frontend and backend, ensuring smooth integration and functionality.
+- **Adnan Nadeer**: Frontend Developer - Enhances the user experience with interactive and user-friendly design elements.
+- **Meharpreet Singh Nanda**: Backend Developer - Manages server-side logic, ensuring robost and efficient backend operations.
+- **Taekwan Yoon**: Backend Developer - Specializes in integrating various APIs and backend services to enhance the app's functionality.
+
+---
+
+##
