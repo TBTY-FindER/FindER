@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import introVoice from "../sounds/Intro.mp3";
 import situationVoice from "../sounds/Situation.mp3";
-import GenderAgeVoice from "../sounds/GenderAge.mp3";
-import permissionVoice from "../sounds/Permission.mp3";
+import genderVoice from "../sounds/Gender.mp3";
+import ageVoice from "../sounds/Gender.mp3";
 
-const voices = [permissionVoice, permissionVoice, permissionVoice];
+const voices = [introVoice, ageVoice, genderVoice, situationVoice];
 
 const VoiceAnimation = ({ showForm }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -17,15 +17,14 @@ const VoiceAnimation = ({ showForm }) => {
     // Initialize audio object
     audioRef.current = new Audio(voices[voiceIndex]);
     audioRef.current.play();
+    setIsPlaying(true);
 
     // Event listener for when the audio ends
     const handleAudioEnd = async () => {
       setIsPlaying(false);
       // take user's voice input
-      if (voiceIndex === 2) {
-        handleVoiceInput().then(() => {
-          showForm();
-        });
+      if (voiceIndex === 3) {
+        handleVoiceInput();
       } else if (voiceIndex !== 0) {
         handleVoiceInput();
       } else {
@@ -45,6 +44,7 @@ const VoiceAnimation = ({ showForm }) => {
     // Stop the current audio immediately
     audioRef.current.pause();
     audioRef.current.currentTime = 0; // Reset the audio playback to the start
+    setButtonAppear(false);
 
     // take user's voice input
     setVoiceIndex((prevIndex) => prevIndex + 1);
@@ -60,8 +60,11 @@ const VoiceAnimation = ({ showForm }) => {
     // check if user stops talking for 3 seconds stop the recognition
     recognition.onspeechend = () => {
       recognition.stop();
-      setVoiceIndex((prevIndex) => prevIndex + 1);
-      console.log("end");
+      if (voiceIndex === 3) {
+        showForm();
+      } else {
+        setVoiceIndex((prevIndex) => prevIndex + 1);
+      }
     };
 
     //  store the user's voice input
@@ -69,6 +72,9 @@ const VoiceAnimation = ({ showForm }) => {
       const current = e.resultIndex;
       const transcript = e.results[current][0].transcript;
       console.log(transcript);
+      const speechInputCopy = [...speechInput];
+      speechInputCopy.push(transcript);
+      setSpeechInput(speechInputCopy);
     };
   };
 
