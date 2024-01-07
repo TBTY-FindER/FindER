@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import HospitalList from "../components/HospitalListItem";
+import HospitalDetailsModal from "../components/HospitalDetailsModal";
 import Sidebar from "../components/Sidebar";
+import IconButton from '@mui/material/IconButton';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 
 function SecondPage({ address, gender, age, situation }) {
   const [hospitals, setHospitals] = useState([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [selectedHospital, setSelectedHospital] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/hospitals")
@@ -33,6 +40,16 @@ function SecondPage({ address, gender, age, situation }) {
     // Handle the resubmitted data, e.g., send to an API or update state
   };
 
+  const handleHospitalClick = (hospital) => {
+    setSelectedHospital(hospital);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedHospital(null);
+  };
+
   return (
     <div
       style={{
@@ -57,11 +74,10 @@ function SecondPage({ address, gender, age, situation }) {
       >
         Nearby Hospitals
       </Typography>
-      <div style={toggleIconStyle} onClick={toggleSidebar}>
-        {sidebarVisible ? "←" : "→"}{" "}
-        {/* Arrow changes direction based on sidebar state */}
-      </div>
-      <HospitalList hospitals={hospitals} />
+      <IconButton onClick={toggleSidebar} style={toggleIconStyle}>
+        {sidebarVisible ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+      </IconButton>
+      <HospitalList hospitals={hospitals} onHospitalClick={handleHospitalClick} />
       <Sidebar
         isVisible={sidebarVisible}
         address={address}
@@ -70,6 +86,13 @@ function SecondPage({ address, gender, age, situation }) {
         situation={situation}
         onResubmit={handleResubmit}
       />
+      {selectedHospital && (
+        <HospitalDetailsModal
+          open={isModalOpen}
+          hospitalDetails={selectedHospital}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }

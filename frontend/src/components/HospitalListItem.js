@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-function HospitalList({ hospitals }) {
+function HospitalList({ hospitals, onHospitalClick }) {
   // Styles for the card, including transition properties for smooth effects
   const cardStyle = {
     borderRadius: "15px",
@@ -39,6 +39,7 @@ function HospitalList({ hospitals }) {
         <Card
           key={index}
           style={cardStyle}
+          onClick={() => onHospitalClick(hospital)}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = hoverEffect.transform;
             e.currentTarget.style.boxShadow = hoverEffect.boxShadow;
