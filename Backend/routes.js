@@ -8,7 +8,7 @@ router.get('/hospitals', (req, res) => {
     return res.json({ body: HospitalController.getHospitals() });
 });
 
-router.get('/hospitals/recommend', async (req, res) => {
+router.post('/hospitals/recommend', async (req, res) => {
     console.log("hospitals/recommend");
     return res.json({ body: await HospitalController.getRecommendation(req) });
 });
