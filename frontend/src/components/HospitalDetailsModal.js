@@ -18,7 +18,7 @@ function HospitalDetailsModal({ open, hospitalDetails, onClose, urgent }) {
     } else {
       const waitingTimeMs = hospitalDetails.waitTime.hours * 3600*1000 +
                            hospitalDetails.waitTime.minutes * 60*1000 + hospitalDetails.duration.value*1000
-      const totalTimeMs = waitingTimeMs + hospitalDetails.duration.value;
+      const totalTimeMs = waitingTimeMs;
       console.log("durationMs when not urgent",totalTimeMs)
       m.add(totalTimeMs, 'ms');
     }
