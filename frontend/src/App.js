@@ -1,7 +1,7 @@
 import Home from "./screens/Home";
 import SecondPage from "./screens/HospitalList";
 import "./styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [address, setAddress] = useState("");
@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="container">
       <Home
-        setAddressHandler={addressHandler}
+        addressHandler={addressHandler}
         genderHandler={genderHandler}
         situationHandler={situationHandler}
       />
