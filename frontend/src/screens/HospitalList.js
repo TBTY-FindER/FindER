@@ -15,12 +15,12 @@ function SecondPage({ address, gender, age, situation }) {
   }, []);
 
   const toggleIconStyle = {
-    position: 'fixed',
-    left: sidebarVisible ? '300px' : '0', // Position next to the sidebar
-    top: '50%',
-    zIndex: '2',
-    cursor: 'pointer',
-    transform: 'translateY(-50%)',
+    position: "fixed",
+    left: sidebarVisible ? "300px" : "0", // Position next to the sidebar
+    top: "50%",
+    zIndex: "2",
+    cursor: "pointer",
+    transform: "translateY(-50%)",
     // Add more styles as needed
   };
 
@@ -42,7 +42,6 @@ function SecondPage({ address, gender, age, situation }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
-        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
       }}
     >
       <Typography
@@ -59,7 +58,8 @@ function SecondPage({ address, gender, age, situation }) {
         Nearby Hospitals
       </Typography>
       <div style={toggleIconStyle} onClick={toggleSidebar}>
-        {sidebarVisible ? '←' : '→'} {/* Arrow changes direction based on sidebar state */}
+        {sidebarVisible ? "←" : "→"}{" "}
+        {/* Arrow changes direction based on sidebar state */}
       </div>
       <HospitalList hospitals={hospitals} />
       <Sidebar

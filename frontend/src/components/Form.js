@@ -40,7 +40,7 @@ class Form extends React.Component {
     this.setState({ submitted: true });
     setTimeout(() => {
       this.state.submitHandler();
-    }, 2000);
+    }, 1500);
   };
 
   render() {
