@@ -19,7 +19,7 @@ The algorithm operates as follows:
 
 - **Web Scraping (BeautifukSoup & Selenium)**: To extract real-time data on hospital services, wait times, and operational hours.
 
-![Hospital Data](/Users/taekwan/Desktop/FindER/screenshots/hospital1.png)
+![Hospital Data](./screenshots/hospital1.png)
 
 - **JavaScript & React**: For building a responsive and interactive user interfact.
 - **Node.js**: To handle server-side operations.
