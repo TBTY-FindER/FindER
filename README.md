@@ -11,9 +11,14 @@ The algorithm operates as follows:
 1. **User Location**: Upon user consent, the site collects the user's current location.
 2. **Data Collection**: Using web scraping, it gathers real-time wait times from hospitals across Alberta.
 3. **User Input**: Users provide details such as age, gender, and the nature of the emergency.
+
+![Information Form](./screenshots/information_form.png)
+
 4. **OpenAI Integration**: Inputs are fed into the OpenAI GPT-4 model to generate immediate care suggestions prior to arrival at the emergency room and assess the urgency of the situation.
 5. **Google Maps API**: Calculates the travel time to potential hospitals.
 6. **Hospital Ranking and Selection**: Hospitals are ranked based on total required time (travel time + wait time) for non-urgent cases or travel time alone for urgent cases. The app then evaluates whether the hospital's services align with the patient's needs before making a selection.
+
+![Hospital List](./screenshots/hospital_list.png)
 
 ## Technologies Used
 
@@ -44,7 +49,3 @@ While currently a tool for individuals facing medical emergencies, we aim to exp
 - **Adnan Nadeer**: Frontend Developer - Enhances the user experience with interactive and user-friendly design elements.
 - **Meharpreet Singh Nanda**: Backend Developer - Manages server-side logic, ensuring robost and efficient backend operations.
 - **Taekwan Yoon**: Backend Developer - Specializes in integrating various APIs and backend services to enhance the app's functionality.
-
----
-
-##
