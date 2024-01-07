@@ -6,6 +6,11 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 function HospitalDetailsModal({ open, hospitalDetails, onClose }) {
+
+  const conversion = () => {
+    let date = new Date(hospitalDetails.totalTime * 1000);
+    return date.toLocaleTimeString();
+  }
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -77,6 +82,15 @@ function HospitalDetailsModal({ open, hospitalDetails, onClose }) {
           <span style={fieldTitleStyle}>Wait Time:</span>
           <span style={fieldValueStyle}>{hospitalDetails.waitTime.hours} hrs {hospitalDetails.waitTime.minutes} mins</span>
         </Typography>
+        <Typography variant="body1" style={infoStyle}>
+          <span style={fieldTitleStyle}>Travel Time:</span>
+          <span style={fieldValueStyle}>{hospitalDetails.duration.text}</span>
+        </Typography>
+        <Typography variant="body1" style={infoStyle}>
+          <span style={fieldTitleStyle}>Estimate time for treatment:</span>
+          <span style={fieldValueStyle}>{conversion()}</span>
+        </Typography>
+
         <Typography variant="body1" style={infoStyle}>
           <span style={fieldTitleStyle}>Note:</span>
           <span style={fieldValueStyle}>{hospitalDetails.note}</span>
