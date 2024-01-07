@@ -6,6 +6,16 @@ import { Person } from "./classes/Person";
 import ApiClient from "./components/ApiClient";
 import { geocode } from "./components/geocode";
 import HoldOnVoice from "./sounds/HolnOn.mp3";
+import Loader from "./components/Loader";
+
+const loadingStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+}
+
+
 function App() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
@@ -15,6 +25,7 @@ function App() {
   const [geolocation, setGeolocation] = useState({});
   const [response, setResponse] = useState([{}]);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
+  const [transitionPage, setTransitionPage] = useState(false);
 
   const addressHandler = (address) => {
     setAddress(address);
@@ -36,66 +47,45 @@ function App() {
     setGeolocation(geolocation);
   };
 
-  useEffect(() => {
-    if (readyToSubmit) {
-      if (typeof address === "string") {
-        // switch address to geolocation
-        console.log(address);
-        geocode(address)
-          .then((result) => {
-            setAddress(result);
-            console.log(result);
-            const person = new Person(age, gender, situation, result);
-            console.log(person);
-            console.log(geolocation);
-            // perform api call here!
-            ApiClient.GetRecommendation(person)
-              .then((r) => {
-                console.log(r);
-                setResponse(r);
-              })
-              .catch((e) => {
-                console.log(e);
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        console.log("isobject");
-        const person = new Person(age, gender, situation, address);
-        console.log(person);
-        console.log(geolocation);
-        // perform api call here!
-        ApiClient.GetRecommendation(person)
-          .then((result) => {
-            console.log(result);
-            setResponse(result);
-          })
-          .catch((err) => {
-            throw err;
-          });
-      }
-    }
-  }, [readyToSubmit, age, gender, situation, geolocation, address]);
 
-  useEffect(() => {
-    if (response.length > 1) {
-      console.log(response);
-      setSubmit(true);
-      setReadyToSubmit(false);
-    }
-  }, [response]);
-
-  const submitHandler = () => {
+  const submitHandler = async () => {
     const holdOnAudio = new Audio(HoldOnVoice);
     holdOnAudio.play();
-    setReadyToSubmit(true);
+    
+    setTransitionPage(true);
+
+    if (typeof address === "string") {
+      // switch address to geolocation
+      let result = await geocode(address);
+      setAddress(result);
+      console.log(result);
+      const person = new Person(age, gender, situation, result);
+      console.log(person);
+      console.log(geolocation);
+      let apiResult = await ApiClient.GetRecommendation(person);
+      setResponse(apiResult);
+    } 
+    else {
+      const person = new Person(age, gender, situation, address);
+      console.log(person);
+      console.log(geolocation);
+      // perform api call here!
+      let apiResult = await ApiClient.GetRecommendation(person);
+      setResponse(apiResult);
+    }
+
+    setTransitionPage(false);
+    setSubmit(true);
   };
 
   return (
     <div className="container">
-      {!submit ? (
+      {transitionPage && <div className="home">
+        <Loader />
+      </div>}
+
+      {!transitionPage && <>
+        {!submit ? (
         <Home
           addressHandler={addressHandler}
           genderHandler={genderHandler}
@@ -112,7 +102,8 @@ function App() {
           age={age}
           response={response}
         />
-      )}
+      )};
+      </>}
     </div>
   );
 }
