@@ -22,7 +22,7 @@ const Home = ({
   const [permissionPage, setPermissionPage] = useState(true);
   const [address, setAddress] = useState("");
   const [inputIndex, setInputIndex] = useState(0);
-  const [speechInput, setSpeechInput] = useState(["", "", ""]); // user's voice input
+  const [speechInput, setSpeechInput] = useState(""); // user's voice input
 
   const endPermissionPage = () => {
     setPermissionPage(false);
@@ -79,10 +79,7 @@ const Home = ({
   }
 
   const updateSpeech = (text) => {
-    const newSpeechInput = [...speechInput];
-    newSpeechInput[inputIndex] = text;
-    setSpeechInput(newSpeechInput);
-    setInputIndex((prevIndex) => prevIndex + 1);
+    setSpeechInput(text);
   };
 
   const handlePermission = () => {
@@ -124,9 +121,7 @@ const Home = ({
               address={address}
               submitHandler={submitHandler}
               ageHandler={ageHandler}
-              situation={speechInput[2]}
-              age={speechInput[0]}
-              gender={speechInput[1]}
+              situation={speechInput}
             />
           ) : (
             <VoiceAnimation

@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import introVoice from "../sounds/Intro.mp3";
 import situationVoice from "../sounds/Situation.mp3";
-import genderVoice from "../sounds/Gender.mp3";
-import ageVoice from "../sounds/Age.mp3";
 import SkipButton from "./SkipButton";
 
-const voices = [introVoice, ageVoice, genderVoice, situationVoice];
+const voices = [introVoice, situationVoice];
 
 const VoiceAnimation = ({ showForm, updateSpeech }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -23,7 +21,7 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
     const handleAudioEnd = async () => {
       setIsPlaying(false);
       // take user's voice input
-      if (voiceIndex === 3) {
+      if (voiceIndex === 1) {
         handleVoiceInput();
       } else if (voiceIndex !== 0) {
         handleVoiceInput();
@@ -57,10 +55,10 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
     const recognition = new SpeechRecognition();
     recognition.start();
 
-    // check if user stops talking for 3 seconds stop the recognition
+    // check if user stops talking for 1 seconds stop the recognition
     recognition.onspeechend = () => {
       recognition.stop();
-      if (voiceIndex === 3) {
+      if (voiceIndex === 1) {
         showForm();
       } else {
         setVoiceIndex((prevIndex) => prevIndex + 1);
@@ -82,8 +80,28 @@ const VoiceAnimation = ({ showForm, updateSpeech }) => {
         <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
         <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
         <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
-        {buttonAppear ? <button onClick={handleClick}>Next</button> : <></>}
       </div>
+      {buttonAppear ? (
+        <button className="start-button" onClick={handleClick}>
+          {" "}
+          Get Started
+          <svg
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            height="20"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+            className="start-svg"
+          >
+            <path
+              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+              fillRule="evenodd"
+            ></path>
+          </svg>
+        </button>
+      ) : (
+        <></>
+      )}
       <div className="skip-holder">
         <SkipButton clickHandler={showForm} />
       </div>

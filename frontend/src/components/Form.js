@@ -11,8 +11,8 @@ class Form extends React.Component {
       submitHandler: props.submitHandler,
       ageHandler: props.ageHandler,
       situation: props.situation,
-      gender: props.gender,
-      age: props.age,
+      gender: "",
+      age: "",
       submitted: false,
     };
   }
@@ -46,7 +46,7 @@ class Form extends React.Component {
     return (
       <div className="testbox">
         <form action="/" className={this.state.submitted ? "form-submit" : ""}>
-          <p id="h1">Emergency Information From</p>
+          <p id="h1">Emergency Information Form</p>
           <p id="h4">
             Current Locaiton<span>*</span>
           </p>

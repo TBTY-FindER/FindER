@@ -193,6 +193,7 @@
 .voice {
   display: flex;
   justify-content: center;
+  animation: slideIn 1s forwards;
 }
 
 .voice-bar {
@@ -521,4 +522,47 @@ textarea {
   margin: 5%;
   width: 100px;
   height: 40px;
+}
+
+.start-button {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 20%;
+  width: 200px;
+  height: 50px;
+  border-radius: 50px;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  background: #d2494b;
+  color: #fff;
+}
+
+.start-svg {
+  margin: 0 0 0 10px;
+}
+
+.start-button:hover svg {
+  margin: 0 0 0 25px;
+  transition: 0.3s;
+}
+
+.start-button:not(:hover) svg {
+  transition: 0.3s;
+}
+
+.start-button:hover {
+  cursor: pointer;
+}
+
+.start-button:active {
+  transform: scale(0.9, 0.9);
+  transition: 200ms;
+}
+
+.start-button:not(:active) {
+  transition: 200ms;
 }
