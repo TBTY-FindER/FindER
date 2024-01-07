@@ -13,7 +13,7 @@ function startServer() {
   CronService.ExecCron()
   .then(() => {
     app.listen(port, () => {
-      console.log(`Done Init CRON`)
+      console.log(`App listening on ${port}`)
     })
   })
 }

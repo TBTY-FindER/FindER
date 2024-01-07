@@ -8,6 +8,11 @@ router.get('/hospitals', (req, res) => {
     return res.json({ body: HospitalController.getHospitals() });
 });
 
+router.get('/hospitals/recommend', async (req, res) => {
+    console.log("hospitals/recommend");
+    return res.json({ body: await HospitalController.getRecommendation() });
+});
+
 // Define your routes
 router.get('/users', (req, res) => {
   // Handle GET request for users
