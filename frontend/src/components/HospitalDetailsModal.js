@@ -71,7 +71,7 @@ function HospitalDetailsModal({ open, hospitalDetails, onClose }) {
         <Typography variant="h6" component="h2" style={titleStyle}>{hospitalDetails.name}</Typography>
         <Typography variant="body1" style={infoStyle}>
           <span style={fieldTitleStyle}>Distance:</span>
-          <span style={fieldValueStyle}>{hospitalDetails.distance} km</span>
+          <span style={fieldValueStyle}>{hospitalDetails.distance.text}</span>
         </Typography>
         <Typography variant="body1" style={infoStyle}>
           <span style={fieldTitleStyle}>Wait Time:</span>

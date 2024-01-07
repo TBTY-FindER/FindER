@@ -61,7 +61,7 @@ function HospitalList({ hospitals, onHospitalClick }) {
               variant="body1"
               style={{ fontSize: "1.1rem", color: "#555" }}
             >
-              Distance: {hospital.distance} km - Wait Time: {hospital.time} mins
+              Distance: {hospital.distance.text} - Wait Time: {hospital.waitTime.hours} hours {hospital.waitTime.minutes} mins
             </Typography>
           </CardContent>
         </Card>
