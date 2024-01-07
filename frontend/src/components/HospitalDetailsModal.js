@@ -5,11 +5,18 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-function HospitalDetailsModal({ open, hospitalDetails, onClose }) {
-
-  const conversion = () => {
-    let date = new Date(hospitalDetails.totalTime * 1000);
-    return date.toLocaleTimeString();
+function HospitalDetailsModal({ open, hospitalDetails, onClose, urgent }) {
+  const conversion = (urgent) => {
+    let date;
+    console.log(urgent)
+    if (urgent){
+      date = new Date(new Date().getTime() + hospitalDetails.duration.value * 1000);
+    }
+    else{
+      date = new Date((hospitalDetails.totalTime)*1000)
+    }
+    console.log(date)
+    return date.toLocaleString();
   }
   const modalStyle = {
     position: 'absolute',
@@ -88,7 +95,7 @@ function HospitalDetailsModal({ open, hospitalDetails, onClose }) {
         </Typography>
         <Typography variant="body1" style={infoStyle}>
           <span style={fieldTitleStyle}>Estimate time for treatment:</span>
-          <span style={fieldValueStyle}>{conversion()}</span>
+          <span style={fieldValueStyle}>{conversion(urgent)}</span>
         </Typography>
 
         <Typography variant="body1" style={infoStyle}>
