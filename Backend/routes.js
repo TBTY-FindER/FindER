@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Define your routes
 router.get('/hospitals', (req, res) => {
-    console.log("hospitals/n");
+    console.log("hospitals/");
     return res.json({ body: HospitalController.getHospitals() });
 });
 

@@ -1,3 +1,5 @@
+const hospitalInfo = require("./hospital_info.json");
+
 /////////////////////// Define Functions Start ///////////////////////
 
 /*
@@ -94,10 +96,7 @@ checkServices = async (
 ) => {
   let services = [];
   try {
-    const fs = require("fs").promises;
-    const data = await fs.readFile("hospital_info.json", "utf8");
-    const json = JSON.parse(data);
-    services = json[hospital_name]["services"];
+    services = hospitalInfo[hospital_name]["services"];
 
     try {
       const OpenAI = require("openai");
