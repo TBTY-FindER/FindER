@@ -13,6 +13,7 @@ const Home = ({
   situationHandler,
   submitHandler,
   ageHandler,
+  geolocationHandler,
 }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
@@ -44,6 +45,11 @@ const Home = ({
         // Using a Promise to handle getCurrentPosition since it's not natively async
         const position = await new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        geolocationHandler({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         });
 
         const currentAddress = await reverseGeocode(

@@ -40,7 +40,7 @@ class Form extends React.Component {
     this.setState({ submitted: true });
     setTimeout(() => {
       this.state.submitHandler();
-    }, 2000);
+    }, 1500);
   };
 
   render() {
@@ -60,9 +60,6 @@ class Form extends React.Component {
           />
 
           <p id="h4">
-            What is the individual's birth assigned gender?<span>*</span>
-          </p>
-          <p id="h4">
             Enter your Date of Birth<span>*</span>
           </p>
           <input
@@ -71,6 +68,9 @@ class Form extends React.Component {
             value={this.state.age}
             onChange={(e) => this.setState({ age: e.target.value })}
           />
+          <p id="h4">
+            What is the individual's gender assigned birth?<span>*</span>
+          </p>
           <table>
             <tbody>
               <tr>

@@ -1,32 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import HospitalList from "../components/HospitalListItem";
+import Sidebar from "../components/Sidebar";
 
-// const dummyHospitals = [
-//   {
-//     id: 1,
-//     name: "City Hospital",
-//     location: "123 Main St, Metropolis",
-//     estimatedTime: "15 mins",
-//     contact: "123-456-7890"
-//   },
-//   {
-//     id: 2,
-//     name: "Green Valley Clinic",
-//     location: "456 Elm St, Smallville",
-//     estimatedTime: "10 mins",
-//     contact: "987-654-3210"
-//   },
-//   // Add more hospitals as needed
-// ];
-
-// Using dummy data for now
-// useEffect(() => {
-//   setHospitals(dummyHospitals);
-// }, []);
-
-function SecondPage({ address, gender, situation, age }) {
+function SecondPage({ address, gender, age, situation }) {
   const [hospitals, setHospitals] = useState([]);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/hospitals")
@@ -34,6 +13,25 @@ function SecondPage({ address, gender, situation, age }) {
       .then((data) => setHospitals(data.body))
       .catch((error) => console.error("Error fetching hospitals:", error));
   }, []);
+
+  const toggleIconStyle = {
+    position: "fixed",
+    left: sidebarVisible ? "300px" : "0", // Position next to the sidebar
+    top: "50%",
+    zIndex: "2",
+    cursor: "pointer",
+    transform: "translateY(-50%)",
+    // Add more styles as needed
+  };
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  const handleResubmit = (formData) => {
+    console.log("Resubmitted data:", formData);
+    // Handle the resubmitted data, e.g., send to an API or update state
+  };
 
   return (
     <div
@@ -44,7 +42,6 @@ function SecondPage({ address, gender, situation, age }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
-        background: "linear-gradient(to right, #e3f2fd, #bbdefb)",
       }}
     >
       <Typography
@@ -60,7 +57,19 @@ function SecondPage({ address, gender, situation, age }) {
       >
         Nearby Hospitals
       </Typography>
+      <div style={toggleIconStyle} onClick={toggleSidebar}>
+        {sidebarVisible ? "←" : "→"}{" "}
+        {/* Arrow changes direction based on sidebar state */}
+      </div>
       <HospitalList hospitals={hospitals} />
+      <Sidebar
+        isVisible={sidebarVisible}
+        address={address}
+        gender={gender}
+        age={age}
+        situation={situation}
+        onResubmit={handleResubmit}
+      />
     </div>
   );
 }

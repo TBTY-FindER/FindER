@@ -1,23 +1,17 @@
 const MockHospital = require("../Mock/MockHospitals");
 const HospitalService = require("../Service/HospitalService");
 const HospitalVm = require("../ViewModel/HospitalVm");
+const RecommendationReq = require("../ViewModel/RecommendReq");
 
 const HospitalController = {
     getHospitals: function() {
-        let lat = 53.523220;
-        let long = -113.526321;
         let hospitalCache = HospitalService.hospitalsCache;
-        // console.log(JSON.stringify())
-        // return HospitalService.mapHospitalLocal(hospitalCache, {});
         return hospitalCache;
     },
 
-    getRecommendation: async function() {
-        // let lat = 52.268112;
-        // let long = -113.811241;
-        let lat = 53.523220;
-        let long = -113.526321;
-        let recommendHospitals = await HospitalService.getRecommendationForNonUrgent(lat, long);
+    getRecommendation: async function(req) {
+        let recommendationReq = new RecommendationReq(req.body.age, req.body.situation, req.body.gender, req.body.lat, req.body.lng);
+        let recommendHospitals = await HospitalService.getRecommendation(recommendationReq);
         return recommendHospitals
     }
 };

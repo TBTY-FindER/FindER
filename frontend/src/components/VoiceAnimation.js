@@ -19,11 +19,11 @@ const VoiceAnimation = () => {
   }, []);
 
   return (
-    <div className={`loader`}>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
-      <div className={isPlaying ? "loader-bar" : "stop-animation"}></div>
+    <div className={`voice`}>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
+      <div className={isPlaying ? "voice-bar" : "stop-animation"}></div>
     </div>
   );
 };
