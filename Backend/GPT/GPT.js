@@ -63,7 +63,7 @@ checkFirstResponse = async (
     });
 
     // prompt
-    const message = `The patient's gender is ${gender}, and the age is ${age}. ${situation}. This is an emergency situation. With the best of your knowledge, briefly describe what should be done (with list of numbers (about 3 to 5 points))until the patient arrives at the emergency or the ambulance comes.`;
+  const message = `The patient's gender is ${gender}, and the age is ${age}. They are seeking medical attention and this is the situation that they have described (it may be blank): ${situation}. Give the best advice for them to do until they arrive to the hospital depending on how urgent it is. Keep the response concise to about 2 bullet points.`;
 
     // use gpt
     const response = await openai.chat.completions.create({
@@ -95,9 +95,9 @@ checkServices = async (
   //   hospital_name = "Innisfail Health Centre"
   services
 ) => {
-  let services = [];
+  // let services = [];
   try {
-    services = hospitalInfo[hospital_name]["services"];
+    // services = hospitalInfo[hospital_name]["services"];
 
     try {
       const OpenAI = require("openai");
@@ -147,7 +147,7 @@ async function testFirstResponse() {
     let firstResponse = await checkFirstResponse(
       "male",
       63,
-      "tummy ache and mouth bleeds"
+      "i think my legs just got cut off but i can still walk"
     );
     console.log(firstResponse);
   } catch (error) {
