@@ -41,7 +41,7 @@ const VoiceAnimation = ({ showForm, updateSpeech, updateCaption }) => {
   const handleClick = () => {
     // Stop the current audio immediately
     updateCaption(
-      "Could you breifly describe your current situation and condition? Your details will help us guide you to better care. "
+      "Could you breifly describe your current situation and condition? Your details will help us guide you to the right care. "
     );
     audioRef.current.pause();
     audioRef.current.currentTime = 0; // Reset the audio playback to the start
