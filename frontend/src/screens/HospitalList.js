@@ -93,10 +93,10 @@ function SecondPage({ address, gender, age, situation, response }) {
         />
       <Sidebar
         isVisible={sidebarVisible}
-        address={address}
-        gender={gender}
-        age={age}
-        situation={situation}
+        initialAddress={address}
+        initialGender={gender}
+        initialAge={age}
+        initialSituation={situation}
         onResubmit={handleResubmit}
         loading={loading}
       />
