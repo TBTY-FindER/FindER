@@ -12,6 +12,7 @@ const Home = ({
   genderHandler,
   situationHandler,
   submitHandler,
+  ageHandler,
 }) => {
   const [permissionDenied, setPermissionDenied] = useState(true);
   const [locationPermission, setLocationPermission] = useState(true);
@@ -47,7 +48,8 @@ const Home = ({
 
         const currentAddress = await reverseGeocode(
           position.coords.latitude,
-          position.coords.longitude
+          position.coords.longitude,
+          process.env.REACT_APP_GOOGLE_MAPS_API_KEY
         );
 
         setAddress(currentAddress);
@@ -97,6 +99,7 @@ const Home = ({
               addressHandler={addressHandler}
               genderHandler={genderHandler}
               situationHandler={situationHandler}
+              ageHandler={ageHandler}
               address={address}
               submitHandler={submitHandler}
             />

@@ -9,6 +9,7 @@ class Form extends React.Component {
       addressHandler: props.addressHandler,
       address: props.address,
       submitHandler: props.submitHandler,
+      ageHandler: props.ageHandler,
       situation: "",
       gender: "",
     };
