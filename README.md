@@ -51,3 +51,5 @@ While currently a tool for individuals facing medical emergencies, we aim to exp
 - **Adnan Nadeer**: Frontend Developer - Enhances the user experience with interactive and user-friendly design elements.
 - **Meharpreet Singh Nanda**: Backend Developer - Manages server-side logic, ensuring robost and efficient backend operations.
 - **Taekwan Yoon**: Backend Developer - Specializes in integrating various APIs and backend services to enhance the app's functionality.
+
+[Devpost](https://devpost.com/software/finder-emergency-room-locator)
